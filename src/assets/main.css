@@ -1,0 +1,45 @@
+@import url('/src/assets/fonts/fonts.css');
+
+:root {
+  /* Colors  */
+  --text-light: #383838;
+  --bg-light: #d9d9d9;
+  --bento-block: #ffffff;
+  --accent-color-1: #ffa500;
+
+  /* Radius */
+  --br-small: 7px;
+  --br-big: 14px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Montserrat;
+  color: var(--text-light);
+}
+
+a {
+  text-decoration: none;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+hr {
+  margin: 25px 0;
+  border: 1px solid #b3b3b3;
+}
+#app {
+  padding: 15px;
+}
+
+body {
+  position: relative;
+  background-color: var(--bg-light);
+}
