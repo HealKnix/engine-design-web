@@ -11,14 +11,20 @@
         v-on:click="setCurrentStudentGroup(group)">
         <h2>{{ group.groupName }}</h2>
         <span>
-          Выполнили <span>{{ numberComplete(group) }}</span> из
-          <span>{{ group.students.length }}</span>
+          Выполнили
+          <span
+            ><b>{{ numberComplete(group) }}</b></span
+          >
+          из
+          <span
+            ><b>{{ group.students.length }}</b></span
+          >
         </span>
       </div>
     </div>
   </BentoBlock>
 
-  <BentoBlock v-if="currentStudentGroup">
+  <BentoBlock v-if="currentStudentGroup" :is-animated="true">
     <div class="group_info">
       <h1>
         Группа

@@ -7,7 +7,11 @@
         v-for="engine in engines"
         :key="engine.id"
         class="engine_card"
-        :class="[{ 'not-active': engine.status === 'Выдан этой группе' }]">
+        :class="[
+          { 'not-active': engine.status === 'Выдан этой группе' },
+          { selected: isCurrentStudentSelected(engine) },
+        ]"
+        v-on:click="setCurrentEngine(engine)">
         <h2>{{ engine.name }}</h2>
         <span class="engine_status">
           {{ engine.status }}
@@ -16,7 +20,7 @@
     </div>
   </BentoBlock>
 
-  <BentoBlock>
+  <BentoBlock v-if="currentEngine" :is-animated="true">
     <h1>Номинальный вариант</h1>
     <hr />
     {{ studentId }}
@@ -26,8 +30,11 @@
 <script setup lang="ts">
 import BentoBlock from '@/components/BentoBlock.vue';
 import router from '../router/index';
+import { ref } from 'vue';
 
 const studentId = router.currentRoute.value.params.id;
+
+const currentEngine = ref<any>(null);
 
 const engines = [
   {
@@ -46,6 +53,15 @@ const engines = [
     status: 'Активный',
   },
 ];
+
+const setCurrentEngine = (engine: any) => {
+  if (engine.status === 'Выдан этой группе') return;
+  currentEngine.value = engine;
+};
+
+const isCurrentStudentSelected = (engine: any) => {
+  return engine.id === currentEngine?.value?.id;
+};
 </script>
 
 <style scoped>
@@ -62,15 +78,19 @@ const engines = [
   align-items: center;
   gap: 10px;
   padding: 30px 23px;
-  background-color: var(--accent-color-1);
+  box-shadow: 0 0 0 3px var(--accent-color-1);
   border-radius: var(--br-big);
 }
 .engine_card.not-active {
   cursor: default;
-  background-color: var(--not-active);
+  box-shadow: 0 0 0 3px var(--not-active);
 }
 
-.engine_card:not(.not-active):hover {
-  filter: brightness(1.1);
+.engine_card.selected {
+  background-color: var(--accent-color-1);
+}
+
+.engine_card:not(.not-active):not(.selected):hover {
+  background-color: #ffa60066;
 }
 </style>
