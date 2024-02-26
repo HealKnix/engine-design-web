@@ -13,11 +13,15 @@
     </ul>
 
     <div>
-      <div class="user_info">
+      <div class="user_info" v-on:click="toProfilePage">
         <img class="user_icon" src="/src/assets/icons/user.svg" />
         <span> Тестов Т.Т. </span>
       </div>
-      <img class="logout_icon" src="/src/assets/icons/logout.svg" />
+
+      <img
+        class="logout_icon"
+        src="/src/assets/icons/logout.svg"
+        v-on:click="toLogoutPage" />
     </div>
   </header>
 </template>
@@ -25,6 +29,15 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/authStore';
 import { RouterLink } from 'vue-router';
+import router from '../router/index';
+
+const toProfilePage = () => {
+  router.push('/profile');
+};
+
+const toLogoutPage = () => {
+  router.push('/logout');
+};
 
 const authStore = useAuthStore();
 </script>

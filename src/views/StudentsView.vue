@@ -216,16 +216,16 @@ const isCurrentStudentSelected = (student: any) => {
   align-items: center;
   gap: 10px;
   padding: 30px 23px;
-  background-color: var(--accent-color-1);
+  box-shadow: 0 0 0 3px var(--accent-color-1);
   border-radius: var(--br-big);
 }
 
 .group_card.selected {
-  outline: 5px solid var(--accent-color-2);
+  background-color: var(--accent-color-1);
 }
 
-.group_card:hover {
-  filter: brightness(1.1);
+.group_card:not(.selected):hover {
+  background-color: #ffa60066;
 }
 
 .students__wrapper {
@@ -249,8 +249,8 @@ const isCurrentStudentSelected = (student: any) => {
   background-color: var(--accent-color-1);
 }
 
-.student_card:hover {
-  background-color: var(--accent-color-1);
+.student_card:not(.selected):hover {
+  background-color: #ffa60066;
 }
 
 h4:has(.issue_new_engine) {
