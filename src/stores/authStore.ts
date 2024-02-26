@@ -1,22 +1,10 @@
+import { UserRole, type User } from '@/models/User';
 import { defineStore } from 'pinia';
-
-export enum UserRole {
-  STUDENT,
-  TEACHER,
-  ADMIN,
-  EDITOR,
-}
-
-export type User = {
-  name: string | null | undefined;
-  email: string | null | undefined;
-  role: UserRole | null | undefined;
-};
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: <User>{
-      name: null,
+      fullName: null,
       email: null,
       role: UserRole.EDITOR,
     },
@@ -44,8 +32,12 @@ export const useAuthStore = defineStore('auth', {
     },
   },
   actions: {
-    setName(name: string) {
-      this.user.name = name;
+    setName(lastName: string, firstName: string, middleName: string) {
+      this.user.lastName = lastName;
+      this.user.firstName = firstName;
+      this.user.middleName = middleName;
+      this.user.fullName = `${lastName} ${firstName} ${middleName}`;
+      this.user.shortName = `${lastName} ${firstName[0]}.${middleName[0]}`;
     },
     setEmail(email: string) {
       this.user.email = email;
