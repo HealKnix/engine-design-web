@@ -24,7 +24,6 @@ import AvailableEnginesView from './views/AvailableEnginesView.vue';
 
 main {
   display: flex;
-  flex-direction: row;
   gap: 15px;
   overflow: hidden;
 }

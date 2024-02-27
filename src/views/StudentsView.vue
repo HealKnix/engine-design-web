@@ -24,7 +24,10 @@
     </div>
   </BentoBlock>
 
-  <BentoBlock v-if="currentStudentGroup" :is-animated="true">
+  <BentoBlock
+    v-if="currentStudentGroup"
+    :is-animated="true"
+    style="width: fit-content">
     <div class="group_info">
       <h1>
         Группа
@@ -174,6 +177,150 @@ const studentGroups = [
       },
     ],
   },
+  {
+    id: 5,
+    groupName: 'ИСТб-21-2',
+    students: [
+      {
+        id: 11,
+        name: 'Тестов Тест Тестович 1',
+        isComplete: false,
+      },
+      {
+        id: 12,
+        name: 'Тестов Тест Тестович 2',
+        isComplete: true,
+      },
+    ],
+  },
+  {
+    id: 5,
+    groupName: 'ИСТб-21-2',
+    students: [
+      {
+        id: 11,
+        name: 'Тестов Тест Тестович 1',
+        isComplete: false,
+      },
+      {
+        id: 12,
+        name: 'Тестов Тест Тестович 2',
+        isComplete: true,
+      },
+    ],
+  },
+  {
+    id: 5,
+    groupName: 'ИСТб-21-2',
+    students: [
+      {
+        id: 11,
+        name: 'Тестов Тест Тестович 1',
+        isComplete: false,
+      },
+      {
+        id: 12,
+        name: 'Тестов Тест Тестович 2',
+        isComplete: true,
+      },
+    ],
+  },
+  {
+    id: 5,
+    groupName: 'ИСТб-21-2',
+    students: [
+      {
+        id: 11,
+        name: 'Тестов Тест Тестович 1',
+        isComplete: false,
+      },
+      {
+        id: 12,
+        name: 'Тестов Тест Тестович 2',
+        isComplete: true,
+      },
+    ],
+  },
+  {
+    id: 5,
+    groupName: 'ИСТб-21-2',
+    students: [
+      {
+        id: 11,
+        name: 'Тестов Тест Тестович 1',
+        isComplete: false,
+      },
+      {
+        id: 12,
+        name: 'Тестов Тест Тестович 2',
+        isComplete: true,
+      },
+    ],
+  },
+  {
+    id: 5,
+    groupName: 'ИСТб-21-2',
+    students: [
+      {
+        id: 11,
+        name: 'Тестов Тест Тестович 1',
+        isComplete: false,
+      },
+      {
+        id: 12,
+        name: 'Тестов Тест Тестович 2',
+        isComplete: true,
+      },
+    ],
+  },
+  {
+    id: 5,
+    groupName: 'ИСТб-21-2',
+    students: [
+      {
+        id: 11,
+        name: 'Тестов Тест Тестович 1',
+        isComplete: false,
+      },
+      {
+        id: 12,
+        name: 'Тестов Тест Тестович 2',
+        isComplete: true,
+      },
+    ],
+  },
+  {
+    id: 5,
+    groupName: 'ИСТб-21-2',
+    students: [
+      {
+        id: 11,
+        name: 'Тестов Тест Тестович 1',
+        isComplete: false,
+      },
+      {
+        id: 12,
+        name: 'Тестов Тест Тестович 2',
+        isComplete: true,
+      },
+    ],
+  },
+  {
+    id: 5,
+    groupName: 'ИСТб-21-2',
+    students: [
+      {
+        id: 11,
+        name: 'Тестов Тест Тестович 1',
+        isComplete: false,
+      },
+      {
+        id: 12,
+        name: 'Тестов Тест Тестович 2',
+        isComplete: true,
+      },
+    ],
+  },
 ];
 
 const numberComplete = (group: any) => {
@@ -200,8 +347,8 @@ const isCurrentStudentSelected = (student: any) => {
 
 <style scoped>
 .groups__wrapper {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 15px;
 }
 
@@ -221,7 +368,7 @@ const isCurrentStudentSelected = (student: any) => {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding: 30px 23px;
+  padding: 30px 20px;
   box-shadow: 0 0 0 3px var(--accent-color-1);
   border-radius: var(--br-big);
 }

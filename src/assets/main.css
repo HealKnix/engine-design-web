@@ -45,3 +45,20 @@ body {
   position: relative;
   background-color: var(--bg-light);
 }
+
+button {
+  appearance: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 10px 30px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 550;
+  background-color: var(--accent-color-2);
+  border: none;
+  border-radius: var(--br-small);
+}
+
+button:hover {
+  filter: brightness(0.9);
+}

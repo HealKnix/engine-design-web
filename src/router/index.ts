@@ -3,6 +3,7 @@ import AvailableEnginesView from '../views/AvailableEnginesView.vue';
 import ProfileView from '@/views/ProfileView.vue';
 import StudentsView from '@/views/StudentsView.vue';
 import EngineChoiceView from '@/views/EngineChoiceView.vue';
+import ConstructorView from '@/views/ConstructorView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,7 +27,7 @@ const router = createRouter({
     {
       path: '/constructor',
       name: 'constructor',
-      component: AvailableEnginesView,
+      component: ConstructorView,
     },
     {
       path: '/engines',
