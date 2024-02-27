@@ -62,8 +62,7 @@
 
 <script setup lang="ts">
 import BentoBlock from '@/components/BentoBlock.vue';
-import { ref, watch } from 'vue';
-import { RouterLink, RouterView } from 'vue-router';
+import { ref } from 'vue';
 import router from '../router/index';
 
 const toNextPage = () => {

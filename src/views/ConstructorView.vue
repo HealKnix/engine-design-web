@@ -123,7 +123,7 @@ const createNewRow = () => {
         const newInput = document.createElement('input');
         newColumn.appendChild(newInput);
         if (i === 0) {
-          newColumn.innerText = table.children.length;
+          newColumn.innerText = table.children.length.toString();
           newColumn.classList.add('number');
         }
         newRow.appendChild(newColumn);
