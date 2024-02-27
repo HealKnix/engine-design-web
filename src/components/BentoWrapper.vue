@@ -21,6 +21,7 @@ const props = defineProps({
   width: 100%;
   height: 100%;
   border-radius: var(--br-big);
+  overflow: hidden;
 }
 
 .bento__wrapper.column {

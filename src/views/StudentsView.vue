@@ -178,7 +178,7 @@ const studentGroups = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     groupName: 'ИСТб-21-2',
     students: [
       {
@@ -194,7 +194,7 @@ const studentGroups = [
     ],
   },
   {
-    id: 5,
+    id: 7,
     groupName: 'ИСТб-21-2',
     students: [
       {
@@ -210,7 +210,7 @@ const studentGroups = [
     ],
   },
   {
-    id: 5,
+    id: 8,
     groupName: 'ИСТб-21-2',
     students: [
       {
@@ -226,7 +226,7 @@ const studentGroups = [
     ],
   },
   {
-    id: 5,
+    id: 9,
     groupName: 'ИСТб-21-2',
     students: [
       {
@@ -242,7 +242,7 @@ const studentGroups = [
     ],
   },
   {
-    id: 5,
+    id: 10,
     groupName: 'ИСТб-21-2',
     students: [
       {
@@ -258,7 +258,7 @@ const studentGroups = [
     ],
   },
   {
-    id: 5,
+    id: 11,
     groupName: 'ИСТб-21-2',
     students: [
       {
@@ -274,7 +274,7 @@ const studentGroups = [
     ],
   },
   {
-    id: 5,
+    id: 12,
     groupName: 'ИСТб-21-2',
     students: [
       {
@@ -290,7 +290,7 @@ const studentGroups = [
     ],
   },
   {
-    id: 5,
+    id: 13,
     groupName: 'ИСТб-21-2',
     students: [
       {
@@ -306,7 +306,7 @@ const studentGroups = [
     ],
   },
   {
-    id: 5,
+    id: 14,
     groupName: 'ИСТб-21-2',
     students: [
       {
