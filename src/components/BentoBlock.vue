@@ -70,15 +70,4 @@ const props = defineProps({
     width: 100%;
   }
 }
-
-.bento_block::-webkit-scrollbar {
-  appearance: none;
-  width: 3px;
-  height: 3px;
-}
-
-.bento_block::-webkit-scrollbar-thumb {
-  background-color: var(--accent-color-2);
-  border-radius: 100px;
-}
 </style>

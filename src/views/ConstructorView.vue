@@ -44,6 +44,7 @@
         <hr />
         <div class="table__wrapper">
           <div class="table">
+            <div class="table_flex"></div>
             <table id="engine_table">
               <tr>
                 <th>№</th>
@@ -93,12 +94,12 @@
 
           <div class="input__wrapper">
             <div class="input">
-              <label>a = </label>
+              <label>a&nbsp;=</label>
               <input type="text" />
             </div>
 
             <div class="input">
-              <label>b = </label>
+              <label>b&nbsp;=</label>
               <input type="text" />
             </div>
           </div>
@@ -179,12 +180,17 @@ const createNewRow = () => {
 }
 
 .table {
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: scroll;
   border-radius: var(--br-big);
   box-shadow: inset 0 0 0 1px #b3b3b3;
 }
 
 .add_new_row_btn {
+  flex-grow: 1;
+  width: 100%;
   background-color: transparent !important;
   color: var(--text-light);
   font-size: 36px;
@@ -219,12 +225,14 @@ const createNewRow = () => {
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 175px;
   gap: 15px;
   border-radius: var(--br-small);
 }
 
 .input > label {
   font-size: 20px;
+  text-wrap: nowrap;
   font-weight: bold;
 }
 </style>
