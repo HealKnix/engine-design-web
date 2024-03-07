@@ -4,6 +4,8 @@ import ProfileView from '@/views/ProfileView.vue';
 import StudentsView from '@/views/StudentsView.vue';
 import EngineChoiceView from '@/views/EngineChoiceView.vue';
 import ConstructorView from '@/views/ConstructorView.vue';
+import DashboardView from '@/views/Admin/DashboardView.vue';
+import UsersView from '@/views/Admin/UsersView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +40,16 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileView,
+    },
+    {
+      path: '/admin/dashboard',
+      name: 'admin-dashboard',
+      component: DashboardView,
+    },
+    {
+      path: '/admin/users',
+      name: 'admin-users',
+      component: UsersView,
     },
   ],
 });

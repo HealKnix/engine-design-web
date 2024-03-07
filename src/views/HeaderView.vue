@@ -1,6 +1,12 @@
 <template>
   <header>
     <ul>
+      <li v-if="authStore.isAdmin">
+        <RouterLink to="/admin/dashboard">Дашборд</RouterLink>
+      </li>
+      <li v-if="authStore.isAdmin">
+        <RouterLink to="/admin/users">Пользователи</RouterLink>
+      </li>
       <li v-if="authStore.isTeacher">
         <RouterLink to="/students">Студенты</RouterLink>
       </li>

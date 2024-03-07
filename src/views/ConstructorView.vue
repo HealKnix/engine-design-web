@@ -1,7 +1,7 @@
 <template>
   <BentoWrapper style="height: 100%">
     <BentoWrapper>
-      <BentoBlock type="width" overflow="none">
+      <BentoBlock type="width" overflow="none" style="height: 90px">
         <div class="engine_name__wrapper">
           <h2>Двигатель:</h2>
           <input placeholder="Введите название" class="engine_name" />
@@ -39,10 +39,10 @@
         <button>Создать двигатель</button>
       </BentoBlock>
 
-      <BentoBlock style="padding-bottom: 100px">
+      <BentoBlock>
         <h2>Таблица</h2>
         <hr />
-        <div class="table__wrapper">
+        <div class="table__wrapper" style="margin-bottom: 50px">
           <div class="table">
             <div class="table_flex"></div>
             <table id="engine_table">

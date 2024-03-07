@@ -6,7 +6,9 @@
       type,
       { overflowed: overflow === 'auto' },
     ]">
-    <slot></slot>
+    <div class="bento__wrapper">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -31,12 +33,19 @@ const props = defineProps({
 </script>
 
 <style scoped>
+.bento__wrapper {
+  width: auto;
+  height: 100%;
+  padding: 25px;
+  overflow: auto;
+}
+
 .bento_block {
   width: 100%;
   height: 100%;
-  padding: 25px;
   background-color: var(--bento-block);
   border-radius: var(--br-big);
+  overflow: hidden;
 }
 
 .bento_block.overflowed {
