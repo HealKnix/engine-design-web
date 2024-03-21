@@ -52,8 +52,12 @@
       <BaseInput title="Группа" />
     </div>
 
-    <button style="margin-bottom: 15px">Обновить данные</button>
-    <button style="background-color: var(--accent-color-3)">
+    <button @click="updateUser(currentUserId)" style="margin-bottom: 15px">
+      Обновить данные
+    </button>
+    <button
+      @click="deleteUser(currentUserId)"
+      style="background-color: var(--accent-color-3)">
       Удалить пользователя
     </button>
   </BentoBlock>
@@ -63,7 +67,7 @@
 import BaseInput from '@/components/BaseInput.vue';
 import BaseRadioForm from '@/components/BaseRadioForm.vue';
 import BentoBlock from '@/components/BentoBlock.vue';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { UserRole, roleList, UserRoleName } from '../../models/User';
 
 interface User {
@@ -72,11 +76,11 @@ interface User {
   role: UserRole;
 }
 
-const currentUserId = ref<number | undefined>(undefined);
+const currentUserId = ref();
 const currentUserName = ref();
 const currentUserRole = ref<UserRole>();
 
-const userList: User[] = [
+const userList = ref<User[]>([
   {
     id: 0,
     name: 'Тестов Тест Тестович 1',
@@ -97,7 +101,7 @@ const userList: User[] = [
     name: 'Тестов Тест Тестович 4',
     role: UserRole.STUDENT,
   },
-];
+]);
 
 const setCurrentUser = (user: User) => {
   currentUserId.value = user.id;
@@ -107,6 +111,21 @@ const setCurrentUser = (user: User) => {
 
 const isCurrentUserSelected = (user: User) => {
   return user.id === currentUserId.value;
+};
+
+const updateUser = (id: number) => {
+  userList.value = userList.value.map((user) => {
+    if (user.id === id) {
+      user.name = currentUserName.value;
+      user.role = currentUserRole.value ?? 0;
+    }
+    return user;
+  });
+};
+
+const deleteUser = (id: number) => {
+  userList.value = userList.value.filter((user) => user.id !== id);
+  currentUserId.value = undefined;
 };
 </script>
 

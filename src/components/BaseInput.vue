@@ -11,8 +11,7 @@
       :value="text"
       v-model="inputValue"
       :class="{ required: req }"
-      @input="$emit('update:modelValue', inputValue)"
-    />
+      @input="$emit('update:modelValue', inputValue)" />
     <span v-if="req" class="required">{{ requiredText }}</span>
   </label>
 </template>
@@ -28,7 +27,7 @@ const props = defineProps({
   },
   type: {
     required: false,
-    default: 'text',
+    default: '',
     type: String,
   },
   req: {
@@ -39,8 +38,8 @@ const props = defineProps({
   text: {
     required: false,
     default: '',
-    type: String
-  }
+    type: String,
+  },
 });
 
 const inputValue = ref(props.text);
