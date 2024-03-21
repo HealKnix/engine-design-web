@@ -1,5 +1,5 @@
 <template>
-  <BentoWrapper style="height: 100%">
+<BentoWrapper style="height: 100%">
     <BentoWrapper>
       <BentoBlock type="width" overflow="none" style="height: 90px">
         <div class="engine_name__wrapper">

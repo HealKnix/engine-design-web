@@ -21,60 +21,21 @@
       </div>
     </div>
   </BentoBlock>
-  <BentoBlock v-if="currentUser" :is-animated="true" style="width: fit-content">
+  <BentoBlock v-if="currentUserId !== undefined" :is-animated="true" style="max-width: 400px !important">
     <h1>Редактирование пользователя</h1>
     <hr />
 
-    <div class="input__wrapper">
-      <div class="input">
-        <label class="input_title">id</label>
-        <input type="text" />
-      </div>
-
-      <div class="input">
-        <label class="input_title">Фамилия</label>
-        <input type="text" />
-      </div>
-
-      <div class="input">
-        <label class="input_title">Имя</label>
-        <input type="text" />
-      </div>
-
-      <div class="input">
-        <label class="input_title">Отчество</label>
-        <input type="text" v-model="currentUser.name" />
-      </div>
-
-      <div class="input">
-        <label class="input_title">Логин</label>
-        <input type="text" />
-      </div>
-
-      <div class="input">
-        <label class="input_title">Почта</label>
-        <input type="text" />
-      </div>
-
-      <div class="input">
-        <label class="input_title">Пароль</label>
-        <input type="text" />
-      </div>
-
-      <div class="input">
-        <label class="input_title">Роль</label>
-        <input type="text" />
-      </div>
-
-      <div class="input">
-        <label class="input_title">Кафедра</label>
-        <input type="text" />
-      </div>
-
-      <div class="input">
-        <label class="input_title">Группа</label>
-        <input type="text" />
-      </div>
+    <div class="inputs__wrapper">
+      <BaseInput title="id" :text="currentUserId.toString()" v-model="currentUserId" />
+      <BaseInput title="Фамилия" />
+      <BaseInput title="Имя" :text="currentUserName" v-model="currentUserName" />
+      <BaseInput title="Отчество" />
+      <BaseInput title="Логин" />
+      <BaseInput title="Почта" />
+      <BaseInput title="Пароль" />
+      <BaseInput title="Роль" :text="currentUserRole" v-model="currentUserRole" />
+      <BaseInput title="Кафедра" />
+      <BaseInput title="Группа" />
     </div>
 
     <button style="margin-bottom: 15px">Обновить данные</button>
@@ -85,12 +46,21 @@
 </template>
 
 <script setup lang="ts">
+import BaseInput from '@/components/BaseInput.vue';
 import BentoBlock from '@/components/BentoBlock.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-const currentUser = ref<any>(null);
+interface User {
+  id: number;
+  name: string;
+  role: string;
+}
 
-const userList = [
+const currentUserId = ref<number | undefined>(undefined);
+const currentUserName = ref('');
+const currentUserRole = ref('');
+
+const userList: User[] = [
   {
     id: 0,
     name: 'Тестов Тест Тестович 1',
@@ -113,13 +83,20 @@ const userList = [
   },
 ];
 
-const setCurrentUser = (user: any) => {
-  currentUser.value = user;
+const setCurrentUser = (user: User) => {
+  currentUserId.value = user.id;
+  currentUserName.value = user.name;
+  currentUserRole.value = user.role;
 };
 
-const isCurrentUserSelected = (user: any) => {
-  return user.id === currentUser?.value?.id;
+const isCurrentUserSelected = (user: User) => {
+  return user.id === currentUserId.value;
 };
+
+watch(currentUserId, () => {
+  console.log(currentUserId.value);
+  
+})
 </script>
 
 <style scoped>
@@ -162,20 +139,10 @@ span {
   font-weight: 570;
 }
 
-.input__wrapper {
+.inputs__wrapper {
   display: flex;
   flex-direction: column;
   gap: 15px;
   margin-bottom: 100px;
-}
-
-.input {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5px;
-  font-size: 20px;
-}
-.input > input {
-  max-width: 300px;
 }
 </style>
