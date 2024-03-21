@@ -17,23 +17,37 @@
         v-on:click="setCurrentUser(user)">
         <span>{{ user.id }}</span>
         <span>{{ user.name }}</span>
-        <span>{{ user.role }}</span>
+        <span>{{ UserRoleName[user.role] }}</span>
       </div>
     </div>
   </BentoBlock>
-  <BentoBlock v-if="currentUserId !== undefined" :is-animated="true" style="max-width: 400px !important">
+  <BentoBlock
+    v-if="currentUserId !== undefined"
+    :is-animated="true"
+    style="max-width: 400px !important">
     <h1>Редактирование пользователя</h1>
     <hr />
 
     <div class="inputs__wrapper">
-      <BaseInput title="id" :text="currentUserId.toString()" v-model="currentUserId" />
+      <BaseInput
+        title="id"
+        :text="currentUserId.toString()"
+        v-model="currentUserId" />
       <BaseInput title="Фамилия" />
-      <BaseInput title="Имя" :text="currentUserName" v-model="currentUserName" />
+      <BaseInput
+        title="Имя"
+        :text="currentUserName"
+        v-model="currentUserName" />
       <BaseInput title="Отчество" />
       <BaseInput title="Логин" />
       <BaseInput title="Почта" />
       <BaseInput title="Пароль" />
-      <BaseInput title="Роль" :text="currentUserRole" v-model="currentUserRole" />
+      <BaseRadioForm
+        title="Роль"
+        name="role"
+        :items="roleList"
+        :current-item-id="currentUserRole"
+        v-model="currentUserRole" />
       <BaseInput title="Кафедра" />
       <BaseInput title="Группа" />
     </div>
@@ -47,39 +61,41 @@
 
 <script setup lang="ts">
 import BaseInput from '@/components/BaseInput.vue';
+import BaseRadioForm from '@/components/BaseRadioForm.vue';
 import BentoBlock from '@/components/BentoBlock.vue';
 import { ref, watch } from 'vue';
+import { UserRole, roleList, UserRoleName } from '../../models/User';
 
 interface User {
   id: number;
   name: string;
-  role: string;
+  role: UserRole;
 }
 
 const currentUserId = ref<number | undefined>(undefined);
-const currentUserName = ref('');
-const currentUserRole = ref('');
+const currentUserName = ref();
+const currentUserRole = ref<UserRole>();
 
 const userList: User[] = [
   {
     id: 0,
     name: 'Тестов Тест Тестович 1',
-    role: 'Администратор',
+    role: UserRole.ADMIN,
   },
   {
     id: 1,
     name: 'Тестов Тест Тестович 2',
-    role: 'Преподаватель',
+    role: UserRole.TEACHER,
   },
   {
     id: 2,
     name: 'Тестов Тест Тестович 3',
-    role: 'Студент',
+    role: UserRole.STUDENT,
   },
   {
     id: 3,
     name: 'Тестов Тест Тестович 4',
-    role: 'Студент',
+    role: UserRole.STUDENT,
   },
 ];
 
@@ -92,11 +108,6 @@ const setCurrentUser = (user: User) => {
 const isCurrentUserSelected = (user: User) => {
   return user.id === currentUserId.value;
 };
-
-watch(currentUserId, () => {
-  console.log(currentUserId.value);
-  
-})
 </script>
 
 <style scoped>
