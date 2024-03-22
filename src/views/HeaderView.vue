@@ -19,15 +19,24 @@
     </ul>
 
     <div>
-      <div class="user_info" v-on:click="toProfilePage">
+      <RouterLink to="/profile" class="user_info">
         <img class="user_icon" src="/src/assets/icons/user.svg" />
         <span> Тестов Т.Т. </span>
-      </div>
+      </RouterLink>
 
-      <img
-        class="logout_icon"
-        src="/src/assets/icons/logout.svg"
-        v-on:click="toLogoutPage" />
+      <a
+        href="#"
+        style="
+          display: flex;
+          align-items: center;
+          border: 0.1px solid transparent;
+          border-radius: 14px;
+        ">
+        <img
+          class="logout_icon"
+          src="/src/assets/icons/logout.svg"
+          v-on:click="toLogoutPage" />
+      </a>
     </div>
   </header>
 </template>
@@ -79,6 +88,11 @@ header > *:nth-child(2) {
 li {
   cursor: pointer;
   position: relative;
+  padding: 5px 0;
+}
+
+li > * {
+  color: var(--text-light);
 }
 
 li::after {
@@ -101,6 +115,9 @@ li:hover::after {
 }
 
 .user_info {
+  position: relative;
+  cursor: pointer;
+  padding: 0 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -109,13 +126,21 @@ li:hover::after {
   border-radius: var(--br-big);
 }
 
-.user_info {
-  cursor: pointer;
-  padding: 0 15px;
+.user_info::after {
+  left: 0;
+  width: 0%;
+  transition: 0.15s ease-in-out;
 }
 
-.user_info:hover {
-  background-color: rgb(244, 244, 244);
+.user_info:hover::after {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 100%;
+  height: 5px;
+  bottom: -5.5px;
+  border-radius: 1000rem;
+  background-color: var(--accent-color-1);
 }
 
 .logout_icon {

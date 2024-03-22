@@ -6,6 +6,7 @@ import EngineChoiceView from '@/views/EngineChoiceView.vue';
 import ConstructorView from '@/views/ConstructorView.vue';
 import DashboardView from '@/views/Admin/DashboardView.vue';
 import UsersView from '@/views/Admin/UsersView.vue';
+import LoginView from '@/views/LoginView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       redirect: '/profile',
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
     },
     {
       path: '/students',

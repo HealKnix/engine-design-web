@@ -1,5 +1,5 @@
 <template>
-<BentoWrapper style="height: 100%">
+  <BentoWrapper style="height: 100%">
     <BentoWrapper>
       <BentoBlock type="width" overflow="none" style="height: 90px">
         <div class="engine_name__wrapper">
@@ -11,32 +11,38 @@
 
     <BentoWrapper direction="row">
       <BentoBlock class="variable_choice__wrapper" style="width: 425px">
-        <div>
-          <h2 style="text-align: center">Выберите переменную</h2>
-          <hr />
-          <div class="variables__wrapper">
-            <div class="variable_card">
-              <span>Y</span>
-            </div>
-            <div class="variable_card">
-              <span>a</span>
-            </div>
-            <div class="variable_card">
-              <span>b</span>
-            </div>
-            <div class="variable_card">
-              <span>r</span>
-            </div>
-            <div class="variable_card">
-              <span>c</span>
-            </div>
-            <div class="variable_card">
-              <span>Z</span>
+        <div
+          style="display: grid; grid-template-rows: 0fr 1fr 0fr; height: 100%">
+          <div>
+            <h2 style="text-align: center">Выберите переменную</h2>
+            <hr />
+          </div>
+
+          <div class="variable_choice">
+            <div class="variables__wrapper">
+              <div class="variable_card">
+                <span>Y</span>
+              </div>
+              <div class="variable_card">
+                <span>a</span>
+              </div>
+              <div class="variable_card">
+                <span>b</span>
+              </div>
+              <div class="variable_card">
+                <span>r</span>
+              </div>
+              <div class="variable_card">
+                <span>c</span>
+              </div>
+              <div class="variable_card">
+                <span>Z</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <button>Создать двигатель</button>
+          <BaseButton text="Создать двигатель" style="margin-top: 25px" />
+        </div>
       </BentoBlock>
 
       <BentoBlock>
@@ -110,6 +116,7 @@
 </template>
 
 <script setup lang="ts">
+import BaseButton from '@/components/BaseButton.vue';
 import BentoBlock from '@/components/BentoBlock.vue';
 import BentoWrapper from '@/components/BentoWrapper.vue';
 
@@ -152,6 +159,14 @@ const createNewRow = () => {
   font-size: 20px;
   background-color: var(--accent-color-1);
   border-radius: var(--br-big);
+  transition: 0.05s ease-in-out;
+}
+
+.variable_card:hover {
+  background-color: color-mix(in srgb, var(--accent-color-1), white 10%);
+}
+.variable_card:active {
+  scale: 1.1;
 }
 
 .engine_name__wrapper {

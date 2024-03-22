@@ -8,7 +8,6 @@
       :id="`input_${title}`"
       step="1"
       min="0"
-      :value="text"
       v-model="inputValue"
       :class="{ required: req }"
       @input="$emit('update:modelValue', inputValue)" />
@@ -54,7 +53,9 @@ const requiredText = ref('Обязательный ввод');
 }
 
 .input_title {
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.15s ease-in-out;
 }
 
 .input__wrapper > input {
@@ -70,6 +71,10 @@ const requiredText = ref('Обязательный ввод');
 
 .input__wrapper > input:focus {
   box-shadow: 0 0 0 2px var(--accent-color-2);
+}
+
+.input_title:has(+ input:focus) {
+  color: var(--accent-color-2);
 }
 
 .input__wrapper > input::placeholder {

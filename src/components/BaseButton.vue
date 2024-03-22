@@ -22,16 +22,18 @@ button {
   width: 100%;
   border: none;
   border-radius: 7px;
-  margin-top: 15px;
-  padding: 20px;
+  padding: 15px 30px;
   font-size: 20px;
   font-weight: 500;
+  background-color: var(--accent-color-2);
+}
+
+button > span {
   color: #fff;
-  background-color: var(--accent-color-1);
 }
 
 button:hover {
-  background-color: #2c4eb5;
+  background-color: color-mix(in srgb, var(--accent-color-2), black 10%);
 }
 
 button:focus {

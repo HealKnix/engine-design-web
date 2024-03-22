@@ -23,6 +23,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
 const props = defineProps({
   title: {
     require: false,
@@ -55,7 +57,8 @@ const props = defineProps({
 }
 
 .form_title {
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .radio_form {
@@ -73,12 +76,17 @@ input {
   border-radius: 7px;
   font-size: 20px;
   color: #333;
-  border: 1px solid #616161;
+  outline: 1px solid #616161;
   overflow: hidden;
 }
 
 .radio_form:has(label > input[type='radio']:focus) {
-  outline: 2px solid #333;
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-color-2);
+}
+
+.form_title:has(+ .radio_form > label > input[type='radio']:focus) {
+  color: var(--accent-color-2);
 }
 
 .input__wrapper {

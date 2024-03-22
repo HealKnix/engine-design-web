@@ -52,14 +52,14 @@
       <BaseInput title="Группа" />
     </div>
 
-    <button @click="updateUser(currentUserId)" style="margin-bottom: 15px">
-      Обновить данные
-    </button>
-    <button
+    <BaseButton
+      text="Обновить данные"
+      @click="updateUser(currentUserId)"
+      style="margin-bottom: 15px" />
+    <BaseButton
+      text="Удалить пользователя"
       @click="deleteUser(currentUserId)"
-      style="background-color: var(--accent-color-3)">
-      Удалить пользователя
-    </button>
+      style="background-color: var(--accent-color-3)" />
   </BentoBlock>
 </template>
 
@@ -69,6 +69,7 @@ import BaseRadioForm from '@/components/BaseRadioForm.vue';
 import BentoBlock from '@/components/BentoBlock.vue';
 import { ref } from 'vue';
 import { UserRole, roleList, UserRoleName } from '../../models/User';
+import BaseButton from '@/components/BaseButton.vue';
 
 interface User {
   id: number;
@@ -78,7 +79,7 @@ interface User {
 
 const currentUserId = ref();
 const currentUserName = ref();
-const currentUserRole = ref<UserRole>();
+const currentUserRole = ref();
 
 const userList = ref<User[]>([
   {
@@ -117,7 +118,7 @@ const updateUser = (id: number) => {
   userList.value = userList.value.map((user) => {
     if (user.id === id) {
       user.name = currentUserName.value;
-      user.role = currentUserRole.value ?? 0;
+      user.role = currentUserRole.value;
     }
     return user;
   });
@@ -173,6 +174,6 @@ span {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 </style>
