@@ -8,22 +8,31 @@
       :id="`input_${title}`"
       step="1"
       min="0"
-      :placeholder="text"
+      :placeholder="type === 'password' ? '********' : text"
       v-model="inputValue"
+      :readonly="readonly"
       :class="{ required: req }"
       @input="$emit('update:modelValue', inputValue)"
       @focus="
         () => {
           inputValue = text;
+          if (autocomplete) return;
+          readonly = false;
         }
       "
-      @focusout="clearInput" />
+      @focusout="
+        () => {
+          inputValue = '';
+          if (autocomplete) return;
+          readonly = true;
+        }
+      " />
     <span v-if="req" class="required">{{ requiredText }}</span>
   </label>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, type InputHTMLAttributes } from 'vue';
 
 const props = defineProps({
   title: {
@@ -46,16 +55,16 @@ const props = defineProps({
     default: '',
     type: String,
   },
+  autocomplete: {
+    required: false,
+    default: true,
+    type: Boolean,
+  },
 });
 
-const inputValue = ref();
+const inputValue = ref('');
 const requiredText = ref('Обязательный ввод');
-
-const clearInput = () => {
-  inputValue.value = '';
-};
-
-defineExpose({ clearInput });
+const readonly = ref(!props.autocomplete);
 </script>
 
 <style scoped>

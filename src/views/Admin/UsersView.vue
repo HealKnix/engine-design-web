@@ -10,14 +10,16 @@
         <span>Роль</span>
       </div>
       <div
-        v-for="(user, index) in userList.sort((a, b) => a.id - b.id)"
+        v-for="(user, index) in userList.sort(
+          (a, b) => (a.id ?? 0) - (b.id ?? 0),
+        )"
         :key="index"
         class="user_card"
         :class="[{ selected: isCurrentUserSelected(user) }]"
         v-on:click="setCurrentUser(user)">
         <span>{{ user.id }}</span>
-        <span>{{ user.name }}</span>
-        <span>{{ UserRoleName[user.role] }}</span>
+        <span>{{ user.fullName }}</span>
+        <span>{{ UserRoleName[user.role ?? 0] }}</span>
       </div>
     </div>
   </BentoBlock>
@@ -32,25 +34,52 @@
       <BaseInput
         title="id"
         type="number"
+        :autocomplete="false"
         :text="currentUserId.toString()"
         v-model="inputId" />
-      <BaseInput title="Фамилия" />
+      <BaseInput
+        title="Фамилия"
+        :text="currentUserLastName"
+        v-model="currentUserLastName" />
       <BaseInput
         title="Имя"
-        :text="currentUserName"
-        v-model="currentUserName" />
-      <BaseInput title="Отчество" />
-      <BaseInput title="Логин" />
-      <BaseInput title="Почта" />
-      <BaseInput title="Пароль" />
+        :text="currentUserFirstName"
+        v-model="currentUserFirstName" />
+      <BaseInput
+        title="Отчество"
+        :text="currentUserMiddleName"
+        v-model="currentUserMiddleName" />
+      <BaseInput
+        v-if="currentUserRole === UserRole.STUDENT"
+        title="Логин"
+        :autocomplete="false"
+        :text="currentUserLogin"
+        v-model="currentUserLogin" />
+      <BaseInput
+        title="Почта"
+        type="email"
+        :text="currentUserEmail"
+        v-model="currentUserEmail" />
+      <BaseInput
+        type="password"
+        title="Пароль"
+        :autocomplete="false"
+        v-model="currentUserPassword" />
       <BaseRadioForm
         title="Роль"
         name="role"
         :items="roleList"
         :current-item-id="currentUserRole"
         v-model="currentUserRole" />
-      <BaseInput title="Кафедра" />
-      <BaseInput title="Группа" />
+      <BaseInput
+        title="Кафедра"
+        :text="currentUserDepartment"
+        v-model="currentUserDepartment" />
+      <BaseInput
+        v-if="currentUserRole === UserRole.STUDENT"
+        title="Группа"
+        :text="currentUserGroup"
+        v-model="currentUserGroup" />
     </div>
 
     <BaseButton
@@ -69,48 +98,46 @@ import BaseInput from '@/components/BaseInput.vue';
 import BaseRadioForm from '@/components/BaseRadioForm.vue';
 import BentoBlock from '@/components/BentoBlock.vue';
 import { ref } from 'vue';
-import { UserRole, roleList, UserRoleName } from '../../models/User';
+import {
+  roleList,
+  UserRoleName,
+  UserRole,
+  type User,
+  userList,
+} from '../../models/User';
 import BaseButton from '@/components/BaseButton.vue';
 
-interface User {
-  id: number;
-  name: string;
-  role: UserRole;
-}
-
 const currentUserId = ref();
-const currentUserName = ref();
+const currentUserFirstName = ref();
+const currentUserLastName = ref();
+const currentUserMiddleName = ref();
+const currentUserEmail = ref();
+const currentUserPassword = ref();
 const currentUserRole = ref();
+const currentUserDepartment = ref();
+
+const currentUserLogin = ref();
+const currentUserGroup = ref();
 
 const inputId = ref();
 
-const userList = ref<User[]>([
-  {
-    id: 0,
-    name: 'Тестов Тест Тестович 1',
-    role: UserRole.ADMIN,
-  },
-  {
-    id: 1,
-    name: 'Тестов Тест Тестович 2',
-    role: UserRole.TEACHER,
-  },
-  {
-    id: 2,
-    name: 'Тестов Тест Тестович 3',
-    role: UserRole.STUDENT,
-  },
-  {
-    id: 3,
-    name: 'Тестов Тест Тестович 4',
-    role: UserRole.STUDENT,
-  },
-]);
-
 const setCurrentUser = (user: User) => {
+  inputId.value = user.id;
   currentUserId.value = user.id;
-  currentUserName.value = user.name;
+  currentUserFirstName.value = user.firstName;
+  currentUserLastName.value = user.lastName;
+  currentUserMiddleName.value = user.middleName;
+  currentUserEmail.value = user.email;
   currentUserRole.value = user.role;
+  currentUserDepartment.value = user.department;
+
+  if (currentUserRole.value === UserRole.STUDENT) {
+    currentUserLogin.value = user.login;
+    currentUserGroup.value = user.group;
+  } else {
+    currentUserLogin.value = null;
+    currentUserGroup.value = null;
+  }
 };
 
 const isCurrentUserSelected = (user: User) => {
@@ -121,9 +148,22 @@ const updateUser = (id: number) => {
   userList.value = userList.value.map((user) => {
     if (user.id === id) {
       currentUserId.value = inputId.value;
-      user.id = inputId.value;
-      user.name = currentUserName.value;
+      user.id = currentUserId.value;
+      user.firstName = currentUserFirstName.value;
+      user.lastName = currentUserLastName.value;
+      user.middleName = currentUserMiddleName.value;
+      user.email = currentUserEmail.value;
       user.role = currentUserRole.value;
+      user.department = currentUserDepartment.value;
+      user.fullName = `${user.lastName} ${user.firstName} ${user.middleName}`;
+
+      if (currentUserRole.value === UserRole.STUDENT) {
+        user.login = currentUserLogin.value;
+        user.group = currentUserGroup.value;
+      } else {
+        user.login = null;
+        user.group = null;
+      }
     }
     return user;
   });

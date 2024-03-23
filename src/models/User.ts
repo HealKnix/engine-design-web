@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref } from 'vue';
 
 export enum UserRole {
   GUEST = 0,
@@ -14,7 +14,7 @@ export const UserRoleName: Record<UserRole, string> = {
   [UserRole.TEACHER]: 'Преподаватель',
   [UserRole.ADMIN]: 'Администратор',
   [UserRole.EDITOR]: 'Редактор',
-}
+};
 
 export interface Role {
   id: UserRole;
@@ -26,7 +26,7 @@ export const roleList = ref<Role[]>([
   { id: UserRole.STUDENT, name: 'Студент' },
   { id: UserRole.TEACHER, name: 'Преподаватель' },
   { id: UserRole.ADMIN, name: 'Администратор' },
-])
+]);
 
 export interface User {
   id: number | null;
@@ -35,6 +35,69 @@ export interface User {
   middleName: string | null;
   fullName: string | null;
   shortName: string | null;
+  login?: string | null;
   email: string | null;
   role: UserRole | null;
+  department: string | null;
+  group?: string | null;
 }
+
+export const userList = ref<User[]>([
+  {
+    id: 0,
+    firstName: 'Даниил',
+    lastName: 'Михайлов',
+    middleName: 'Александрович',
+    fullName: 'Михайлов Даниил Александрович',
+    shortName: 'Михайлов Д.А.',
+    email: 'mikhaylov.daniil2014@yandex.ru',
+    role: UserRole.ADMIN,
+    department: 'ИИТиАД',
+  },
+  {
+    id: 1,
+    firstName: 'Илья',
+    lastName: 'Дубровин',
+    middleName: 'Сергеевич',
+    fullName: 'Дубровин Илья Сергеевич',
+    shortName: 'Дубровин И.С.',
+    email: 'dubrov.ilya2014@yandex.ru',
+    role: UserRole.ADMIN,
+    department: 'ИИТиАД',
+  },
+  {
+    id: 2,
+    firstName: 'Валерий',
+    lastName: 'Бобров',
+    middleName: 'Михайлович',
+    fullName: 'Бобров Валерий Михайлович',
+    shortName: 'Бобров В.М.',
+    email: 'bobrov.valeriy2014@yandex.ru',
+    role: UserRole.ADMIN,
+    department: 'ИИТиАД',
+  },
+  {
+    id: 3,
+    firstName: 'Константин',
+    lastName: 'Геннадий',
+    middleName: 'Григорьевич',
+    fullName: 'Константинов Геннадий Григорьевич',
+    shortName: 'Константинов Г.Г.',
+    email: 'kgg40@mail.ru',
+    role: UserRole.TEACHER,
+    department: 'ЭиЭТ',
+  },
+  {
+    id: 4,
+    firstName: 'Денис',
+    lastName: 'Ветров',
+    middleName: 'Константинович',
+    fullName: 'Ветров Денис Константинович',
+    shortName: 'Ветров Д.К.',
+    email: 'vetrov.denis2014@yandex.ru',
+    login: '20210001',
+    role: UserRole.STUDENT,
+    department: 'ЭиЭТ',
+    group: 'ЭТ-1',
+  },
+]);
