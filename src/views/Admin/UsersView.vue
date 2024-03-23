@@ -10,7 +10,7 @@
         <span>Роль</span>
       </div>
       <div
-        v-for="(user, index) in userList"
+        v-for="(user, index) in userList.sort((a, b) => a.id - b.id)"
         :key="index"
         class="user_card"
         :class="[{ selected: isCurrentUserSelected(user) }]"
@@ -31,8 +31,9 @@
     <div class="inputs__wrapper">
       <BaseInput
         title="id"
+        type="number"
         :text="currentUserId.toString()"
-        v-model="currentUserId" />
+        v-model="inputId" />
       <BaseInput title="Фамилия" />
       <BaseInput
         title="Имя"
@@ -81,6 +82,8 @@ const currentUserId = ref();
 const currentUserName = ref();
 const currentUserRole = ref();
 
+const inputId = ref();
+
 const userList = ref<User[]>([
   {
     id: 0,
@@ -117,6 +120,8 @@ const isCurrentUserSelected = (user: User) => {
 const updateUser = (id: number) => {
   userList.value = userList.value.map((user) => {
     if (user.id === id) {
+      currentUserId.value = inputId.value;
+      user.id = inputId.value;
       user.name = currentUserName.value;
       user.role = currentUserRole.value;
     }
@@ -127,6 +132,7 @@ const updateUser = (id: number) => {
 const deleteUser = (id: number) => {
   userList.value = userList.value.filter((user) => user.id !== id);
   currentUserId.value = undefined;
+  inputId.value = undefined;
 };
 </script>
 
@@ -154,9 +160,11 @@ const deleteUser = (id: number) => {
   padding: 10px;
   border: 1px solid var(--accent-color-1);
   border-radius: var(--br-small);
+  transition: 0.05s ease-in-out;
 }
 .user_card.selected {
   background-color: var(--accent-color-1);
+  scale: 1.01;
 }
 .user_card:not(.selected):hover {
   background-color: #ffa60066;

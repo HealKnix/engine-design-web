@@ -8,9 +8,16 @@
       :id="`input_${title}`"
       step="1"
       min="0"
+      :placeholder="text"
       v-model="inputValue"
       :class="{ required: req }"
-      @input="$emit('update:modelValue', inputValue)" />
+      @input="$emit('update:modelValue', inputValue)"
+      @focus="
+        () => {
+          inputValue = text;
+        }
+      "
+      @focusout="clearInput" />
     <span v-if="req" class="required">{{ requiredText }}</span>
   </label>
 </template>
@@ -41,8 +48,14 @@ const props = defineProps({
   },
 });
 
-const inputValue = ref(props.text);
+const inputValue = ref();
 const requiredText = ref('Обязательный ввод');
+
+const clearInput = () => {
+  inputValue.value = '';
+};
+
+defineExpose({ clearInput });
 </script>
 
 <style scoped>
