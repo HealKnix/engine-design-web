@@ -10,8 +10,9 @@
         { warning: toast.toastStatusModal === 'warning' },
         { show: toast.toastShowModal },
       ]"
-      @animationend="closeToast(toast, $event)"
-      @click="closeToast(toast, $event)">
+      @animationstart="addAnimation(toast)"
+      @animationend="removeAnimation(toast, $event)"
+      @click="removeAnimation(toast, $event)">
       <div class="icon">
         <span>
           <i
@@ -46,7 +47,11 @@ import { useModalsStore } from '../stores/useModalsStore';
 
 const modalStore = useModalsStore();
 
-const closeToast = (toast: any, element: any) => {
+const addAnimation = (toast: any) => {
+  toast.toastShowModal = true;
+};
+
+const removeAnimation = (toast: any, element: any) => {
   toast.toastShowModal = false;
 
   setTimeout(() => {

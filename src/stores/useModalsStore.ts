@@ -21,7 +21,7 @@ export const useModalsStore = defineStore('modals', {
         toastIdModal: index,
         toastStatusModal: status,
         toastTextModal: text,
-        toastShowModal: true,
+        toastShowModal: false,
       });
       index++;
     },
