@@ -15,13 +15,53 @@
       @click="removeAnimation(toast, $event)">
       <div class="icon">
         <span>
-          <i
-            class="fa-solid"
-            :class="[
-              { 'fa-check': toast.toastStatusModal === 'success' },
-              { 'fa-multiply': toast.toastStatusModal === 'error' },
-              { 'fa-warning': toast.toastStatusModal === 'warning' },
-            ]"></i>
+          <svg
+            v-if="toast.toastStatusModal === 'success'"
+            id="_Слой_2"
+            data-name="Слой 2"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 42.11 31.44">
+            <g id="_Слой_1-2" data-name="Слой 1">
+              <polyline
+                class="success_svg"
+                points="2.5 18.28 13.17 28.94 39.61 2.5" />
+            </g>
+          </svg>
+          <svg
+            v-if="toast.toastStatusModal === 'error'"
+            id="_Слой_2"
+            data-name="Слой 2"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 40.94 40.94">
+            <g id="_Слой_1-2" data-name="Слой 1">
+              <g>
+                <line
+                  class="error_svg"
+                  x1="2.5"
+                  y1="2.5"
+                  x2="38.44"
+                  y2="38.44" />
+                <line
+                  class="error_svg"
+                  x1="2.5"
+                  y1="38.44"
+                  x2="38.44"
+                  y2="2.5" />
+              </g>
+            </g>
+          </svg>
+          <svg
+            v-if="toast.toastStatusModal === 'warning'"
+            id="_Слой_2"
+            data-name="Слой 2"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 43.22 38.1">
+            <g id="_Слой_1-2" data-name="Слой 1">
+              <path
+                class="warning_svg"
+                d="M42.89,34.35L23.78,1.25c-.45-.77-1.27-1.25-2.17-1.25s-1.72.48-2.17,1.25L.33,34.35c-.45.77-.45,1.73,0,2.5.45.77,1.27,1.25,2.17,1.25h38.22c.89,0,1.72-.48,2.17-1.25.45-.77.45-1.73,0-2.5ZM24.18,10.64l-.85,16h-3.39l-.82-16h5.06ZM23.58,34.04c-.51.51-1.16.77-1.93.77s-1.46-.26-1.98-.77c-.53-.51-.79-1.14-.79-1.9s.26-1.38.79-1.88c.52-.5,1.19-.75,1.98-.75s1.42.25,1.93.75c.51.5.77,1.13.77,1.88s-.26,1.39-.77,1.9Z" />
+            </g>
+          </svg>
         </span>
       </div>
       <div class="content">
@@ -61,11 +101,29 @@ const removeAnimation = (toast: any, element: any) => {
 </script>
 
 <style scoped>
+.success_svg,
+.error_svg {
+  fill: none;
+  stroke: white;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 8px;
+}
+.warning_svg {
+  fill: white;
+  stroke: none;
+  stroke-width: 0px;
+  transform: translateY(-4px);
+}
+
 .toast__wrapper {
   position: absolute;
   top: 25px;
   right: 0;
   z-index: 9999;
+  max-height: 95%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .toast {
@@ -148,18 +206,18 @@ const removeAnimation = (toast: any, element: any) => {
 }
 
 .icon > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 25px;
   height: 25px;
-  line-height: 25px;
-  font-weight: bold;
   color: white;
   border-radius: 50%;
-  text-align: center;
-  line-height: 28px;
 }
 
-i {
-  color: white;
+.icon > span > svg {
+  width: 13px;
+  height: 13px;
 }
 
 .toast.success > .icon > span {
