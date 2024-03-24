@@ -127,6 +127,9 @@ li:hover::after {
 }
 
 .user_info::after {
+  position: absolute;
+  display: block;
+  content: '';
   left: 0;
   width: 0%;
   transition: 0.15s ease-in-out;
