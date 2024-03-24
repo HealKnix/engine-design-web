@@ -60,6 +60,7 @@ const authStore = useAuthStore();
 <style scoped>
 header {
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
 }
 
@@ -68,6 +69,8 @@ header > * {
   justify-content: space-between;
   align-items: center;
   list-style: none;
+  flex-wrap: wrap;
+  gap: 25px;
   background-color: var(--bento-block);
   border-radius: var(--br-big);
   font-size: 24px;
@@ -80,6 +83,7 @@ header > *:nth-child(1) {
 }
 
 header > *:nth-child(2) {
+  flex-wrap: nowrap;
   flex-grow: 0;
   gap: 25px;
   padding: 15px 25px;
@@ -164,5 +168,39 @@ li:hover::after {
   bottom: -5.5px;
   border-radius: 1000rem;
   background-color: var(--accent-color-1);
+}
+
+@media (width < 1433px) {
+  header {
+    flex-direction: column-reverse;
+  }
+  header > *:nth-child(1) {
+    padding: 25px;
+  }
+  header > *:nth-child(2) {
+    justify-content: center;
+    flex-grow: 1;
+  }
+}
+
+@media (width < 971px) {
+  header {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  header > *:nth-child(1) {
+    flex-grow: 1;
+    font-size: 14px;
+  }
+  header > *:nth-child(2) {
+    flex-direction: column;
+    flex-grow: 0;
+    font-size: 14px;
+  }
+  header > *:nth-child(2) > *:nth-child(1) {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
 }
 </style>

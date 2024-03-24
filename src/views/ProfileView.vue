@@ -3,9 +3,7 @@
     <h1>Профиль пользователя</h1>
     <hr />
 
-    <span style="font-size: 30px; font-weight: 400">
-      Тестов Тест Тестович
-    </span>
+    <span> Тестов Тест Тестович </span>
 
     <div class="info__wrapper">
       <div class="info_block">
@@ -65,7 +63,7 @@ const isEdit = ref(false);
   max-width: fit-content;
 }
 .info_block > span {
-  font-weight: 600;
+  font-weight: 700;
 }
 .info_block > .info > .row {
   margin-top: 17px;
@@ -78,5 +76,13 @@ const isEdit = ref(false);
 .row {
   display: grid;
   grid-template-columns: 200px 1fr;
+}
+
+@media (width < 450px) {
+  .row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
 }
 </style>
