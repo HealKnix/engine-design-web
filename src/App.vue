@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
 import HeaderView from './views/HeaderView.vue';
+import BaseToastModal from './components/BaseToastModal.vue';
 </script>
 
 <template>
+  <BaseToastModal />
   <div class="app__wrapper">
     <HeaderView />
     <main>

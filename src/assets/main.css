@@ -16,6 +16,11 @@
   /* Radius */
   --br-small: 7px;
   --br-big: 14px;
+
+  /* Toast */
+  --toast-success: #18de68;
+  --toast-warning: #ffa500;
+  --toast-error: #e31212;
 }
 
 * {
@@ -61,6 +66,7 @@ body,
 #app {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 hr {

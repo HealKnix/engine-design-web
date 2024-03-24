@@ -31,11 +31,17 @@
     <hr />
 
     <div class="inputs__wrapper">
+      <BaseRadioForm
+        title="Роль"
+        name="role"
+        :items="roleList"
+        :current-item-id="currentUserRole"
+        v-model="currentUserRole" />
       <BaseInput
         title="id"
         type="number"
         :autocomplete="false"
-        :text="currentUserId.toString()"
+        :text="inputId.toString()"
         v-model="inputId" />
       <BaseInput
         title="Фамилия"
@@ -65,12 +71,6 @@
         title="Пароль"
         :autocomplete="false"
         v-model="currentUserPassword" />
-      <BaseRadioForm
-        title="Роль"
-        name="role"
-        :items="roleList"
-        :current-item-id="currentUserRole"
-        v-model="currentUserRole" />
       <BaseInput
         title="Кафедра"
         :text="currentUserDepartment"
@@ -106,6 +106,9 @@ import {
   userList,
 } from '../../models/User';
 import BaseButton from '@/components/BaseButton.vue';
+import { useModalsStore } from '../../stores/useModalsStore';
+
+const modalsStore = useModalsStore();
 
 const currentUserId = ref();
 const currentUserFirstName = ref();
@@ -145,6 +148,19 @@ const isCurrentUserSelected = (user: User) => {
 };
 
 const updateUser = (id: number) => {
+  let count = 0;
+  userList.value.forEach((user) => {
+    if (user.id === inputId.value && currentUserId.value !== inputId.value) {
+      count += 1;
+    }
+  });
+  if (count > 0) {
+    modalsStore.openToastModal(
+      'error',
+      'Пользователь с таким id уже существует!',
+    );
+    return;
+  }
   userList.value = userList.value.map((user) => {
     if (user.id === id) {
       currentUserId.value = inputId.value;
@@ -164,6 +180,7 @@ const updateUser = (id: number) => {
         user.login = null;
         user.group = null;
       }
+      modalsStore.openToastModal('success', 'Пользователь отредактирован');
     }
     return user;
   });
@@ -173,6 +190,7 @@ const deleteUser = (id: number) => {
   userList.value = userList.value.filter((user) => user.id !== id);
   currentUserId.value = undefined;
   inputId.value = undefined;
+  modalsStore.openToastModal('success', 'Пользователь успешно удалён!');
 };
 </script>
 
