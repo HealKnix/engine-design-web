@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { RouterLink } from 'vue-router';
 import router from '../router/index';
 
@@ -204,3 +204,4 @@ li:hover::after {
   }
 }
 </style>
+@/stores/useAuthStore

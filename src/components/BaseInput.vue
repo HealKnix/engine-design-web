@@ -6,8 +6,9 @@
     <input
       :type="type"
       :id="`input_${title}`"
-      step="1"
-      min="0"
+      :step="step"
+      :min="min"
+      :max="max"
       :placeholder="type === 'password' ? '********' : text"
       v-model="inputValue"
       :readonly="readonly"
@@ -60,11 +61,31 @@ const props = defineProps({
     default: true,
     type: Boolean,
   },
+  readonly: {
+    required: false,
+    default: false,
+    type: Boolean,
+  },
+  step: {
+    required: false,
+    default: 1,
+    type: Number,
+  },
+  min: {
+    required: false,
+    default: 0,
+    type: Number,
+  },
+  max: {
+    required: false,
+    default: Infinity,
+    type: Number,
+  },
 });
 
 const inputValue = ref('');
 const requiredText = ref('Обязательный ввод');
-const readonly = ref(!props.autocomplete);
+const readonly = ref(!props.autocomplete || props.readonly);
 </script>
 
 <style scoped>
@@ -76,7 +97,7 @@ const readonly = ref(!props.autocomplete);
 
 .input_title {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   transition: 0.15s ease-in-out;
 }
 

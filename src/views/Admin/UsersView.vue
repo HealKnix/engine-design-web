@@ -148,6 +148,11 @@ const isCurrentUserSelected = (user: User) => {
 };
 
 const updateUser = (id: number) => {
+  if (inputId.value === '') {
+    modalsStore.openToastModal('error', 'Некорректный ввод');
+    return;
+  }
+
   let count = 0;
   userList.value.forEach((user) => {
     if (user.id === inputId.value && currentUserId.value !== inputId.value) {
@@ -157,7 +162,7 @@ const updateUser = (id: number) => {
   if (count > 0) {
     modalsStore.openToastModal(
       'error',
-      'Пользователь с таким id уже существует!',
+      `Пользователь с id(${inputId.value}) уже существует!`,
     );
     return;
   }

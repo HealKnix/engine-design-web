@@ -23,8 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-
 const props = defineProps({
   title: {
     require: false,
@@ -58,7 +56,7 @@ const props = defineProps({
 
 .form_title {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .radio_form {

@@ -11,8 +11,8 @@
         { show: toast.toastShowModal },
       ]"
       @animationstart="addAnimation(toast)"
-      @animationend="removeAnimation(toast, $event)"
-      @click="removeAnimation(toast, $event)">
+      @animationend="removeAnimation(toast)"
+      @click="removeAnimation(toast)">
       <div class="icon">
         <span>
           <svg
@@ -91,7 +91,7 @@ const addAnimation = (toast: any) => {
   toast.toastShowModal = true;
 };
 
-const removeAnimation = (toast: any, element: any) => {
+const removeAnimation = (toast: any) => {
   toast.toastShowModal = false;
 
   setTimeout(() => {
@@ -136,7 +136,7 @@ const removeAnimation = (toast: any, element: any) => {
   margin: var(--margin);
   transform: translate3d(calc(100% + var(--margin)), 0, 0);
   min-height: 70px;
-  border-radius: var(--br-big);
+  border-radius: var(--br-small);
   box-shadow: 0 0 10px 0 rgba(33, 33, 33, 0.2);
   overflow: hidden;
   transition: 0.25s ease-in-out;
