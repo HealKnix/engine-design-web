@@ -21,7 +21,14 @@
       :text="inputValue"
       :readonly="true"
       style="margin-bottom: 5px" />
-    <div v-if="show" class="radio_form">
+    <div
+      v-if="show"
+      class="radio_form"
+      @focusout="
+        () => {
+          show = false;
+        }
+      ">
       <div style="display: flex; flex-direction: column; overflow: auto">
         <label
           v-for="(item, index) in items"
@@ -35,10 +42,15 @@
             type="radio"
             :name="name"
             :id="`radio_input_${name}_${index}`"
-            :checked="item.id === currentItemId"
+            :checked="item.id === inputCurrentId"
             :value="item.value"
             @input="$emit('update:modelValue', item.value)"
-            v-model="inputValue" />
+            v-model="inputValue"
+            @click="
+              () => {
+                inputCurrentId = item.id;
+              }
+            " />
         </label>
       </div>
     </div>
@@ -73,6 +85,7 @@ const props = defineProps({
 });
 
 const inputValue = ref(props.items[props.currentItemId].value);
+const inputCurrentId = ref(props.currentItemId);
 const show = ref(false);
 </script>
 

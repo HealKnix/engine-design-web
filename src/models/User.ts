@@ -26,6 +26,7 @@ export const roleList = ref<Role[]>([
   { id: UserRole.STUDENT, name: 'Студент' },
   { id: UserRole.TEACHER, name: 'Преподаватель' },
   { id: UserRole.ADMIN, name: 'Администратор' },
+  { id: UserRole.EDITOR, name: 'Редактор' },
 ]);
 
 export interface User {
@@ -37,6 +38,8 @@ export interface User {
   shortName: string | null;
   login?: string | null;
   email: string | null;
+  password: string | null;
+  phoneNumber: string | null;
   role: UserRole | null;
   department: string | null;
   group?: string | null;
@@ -51,7 +54,9 @@ export const userList = ref<User[]>([
     fullName: 'Михайлов Даниил Александрович',
     shortName: 'Михайлов Д.А.',
     email: 'mikhaylov.daniil2014@yandex.ru',
-    role: UserRole.ADMIN,
+    password: 'test',
+    phoneNumber: '79248005533',
+    role: UserRole.EDITOR,
     department: 'ИИТиАД',
   },
   {
@@ -62,6 +67,8 @@ export const userList = ref<User[]>([
     fullName: 'Дубровин Илья Сергеевич',
     shortName: 'Дубровин И.С.',
     email: 'dubrov.ilya2014@yandex.ru',
+    password: 'test',
+    phoneNumber: '79248005534',
     role: UserRole.ADMIN,
     department: 'ИИТиАД',
   },
@@ -73,6 +80,8 @@ export const userList = ref<User[]>([
     fullName: 'Бобров Валерий Михайлович',
     shortName: 'Бобров В.М.',
     email: 'bobrov.valeriy2014@yandex.ru',
+    password: 'test',
+    phoneNumber: '79248005535',
     role: UserRole.ADMIN,
     department: 'ИИТиАД',
   },
@@ -84,6 +93,8 @@ export const userList = ref<User[]>([
     fullName: 'Константинов Геннадий Григорьевич',
     shortName: 'Константинов Г.Г.',
     email: 'kgg40@mail.ru',
+    password: 'test',
+    phoneNumber: '79248005536',
     role: UserRole.TEACHER,
     department: 'ЭиЭТ',
   },
@@ -95,7 +106,9 @@ export const userList = ref<User[]>([
     fullName: 'Ветров Денис Константинович',
     shortName: 'Ветров Д.К.',
     email: 'vetrov.denis2014@yandex.ru',
+    password: 'test',
     login: '20210001',
+    phoneNumber: '79248005537',
     role: UserRole.STUDENT,
     department: 'ЭиЭТ',
     group: 'ЭТ-1',

@@ -67,6 +67,11 @@
         :text="currentUserEmail"
         v-model="currentUserEmail" />
       <BaseInput
+        title="Телефон"
+        type="phone"
+        :text="currentUserPhone"
+        v-model="currentUserPhone" />
+      <BaseInput
         type="password"
         title="Пароль"
         :autocomplete="false"
@@ -115,6 +120,7 @@ const currentUserFirstName = ref();
 const currentUserLastName = ref();
 const currentUserMiddleName = ref();
 const currentUserEmail = ref();
+const currentUserPhone = ref();
 const currentUserPassword = ref();
 const currentUserRole = ref();
 const currentUserDepartment = ref();
@@ -131,6 +137,7 @@ const setCurrentUser = (user: User) => {
   currentUserLastName.value = user.lastName;
   currentUserMiddleName.value = user.middleName;
   currentUserEmail.value = user.email;
+  currentUserPhone.value = user.phoneNumber;
   currentUserRole.value = user.role;
   currentUserDepartment.value = user.department;
 
@@ -174,6 +181,7 @@ const updateUser = (id: number) => {
       user.lastName = currentUserLastName.value;
       user.middleName = currentUserMiddleName.value;
       user.email = currentUserEmail.value;
+      user.phoneNumber = currentUserPhone.value;
       user.role = currentUserRole.value;
       user.department = currentUserDepartment.value;
       user.fullName = `${user.lastName} ${user.firstName} ${user.middleName}`;

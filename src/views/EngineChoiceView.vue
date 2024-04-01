@@ -20,7 +20,7 @@
     </div>
   </BentoBlock>
 
-  <BentoBlock v-if="currentEngine" :is-animated="true" style="max-width: 500px">
+  <BentoBlock v-if="currentEngine" :is-animated="true" style="max-width: 350px">
     <h1>Номинальный вариант</h1>
     {{ currentEngine.name }}
     <br />
@@ -28,7 +28,7 @@
     <hr />
 
     <div style="display: flex; flex-direction: column; gap: 15px">
-      <BaseDropdownMenu
+      <BaseSelect
         title="Мощность двигателя"
         name="engine_power"
         :items="[
@@ -189,7 +189,7 @@
           },
         ]"
         v-model="currentEnginePower" />
-      <BaseDropdownMenu
+      <BaseSelect
         title="Номинальное напряжение"
         name="nom_voltage"
         :items="[
@@ -206,11 +206,11 @@
           {
             id: 2,
             name: '660',
-            value: 0.0,
+            value: 660,
           },
         ]"
         v-model="currentNomVoltage" />
-      <BaseDropdownMenu
+      <BaseSelect
         title="Число полюсов"
         name="poles_count"
         :items="[
@@ -241,7 +241,7 @@
           },
         ]"
         v-model="currentPolesCount" />
-      <BaseDropdownMenu
+      <BaseSelect
         title="Класс нагревостойкости"
         name="heat_class"
         :items="[
@@ -268,7 +268,7 @@
         :step="0.01"
         :min="0"
         :max="1"
-        :text="currentSnom"
+        :text="currentSnom.toString()"
         v-model="currentSnom" />
       <BaseButton
         @click="
@@ -288,7 +288,7 @@ import router from '../router/index';
 import { ref } from 'vue';
 import BaseInput from '@/components/BaseInput.vue';
 import BaseButton from '@/components/BaseButton.vue';
-import BaseDropdownMenu from '@/components/BaseDropdownMenu.vue';
+import BaseSelect from '@/components/BaseSelect.vue';
 import { studentList } from '@/models/mock/students';
 import { useModalsStore } from '@/stores/useModalsStore';
 

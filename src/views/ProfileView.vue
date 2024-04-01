@@ -3,7 +3,7 @@
     <h1>Профиль пользователя</h1>
     <hr />
 
-    <span> Тестов Тест Тестович </span>
+    <span style="font-size: 36px"> {{ authStore.user.fullName }} </span>
 
     <div class="info__wrapper">
       <div class="info_block">
@@ -11,13 +11,13 @@
         <div class="info">
           <div class="row">
             <span>E-Mail:</span>
-            <a class="info_desc" style="text-decoration: underline"
-              >www.test@test.com</a
-            >
+            <a class="info_desc" style="text-decoration: underline">{{
+              authStore.user.email
+            }}</a>
           </div>
           <div class="row">
             <span>Телефон:</span>
-            <span class="info_desc">+7 (800) 555-35-35</span>
+            <span class="info_desc">{{ authStore.user.phoneNumber }}</span>
           </div>
         </div>
       </div>
@@ -27,22 +27,60 @@
         <div class="info">
           <div class="row">
             <span>Кафедра:</span>
-            <span class="info_desc">Машиностроение</span>
+            <span class="info_desc">{{ authStore.user.department }}</span>
           </div>
           <div class="row">
-            <span>Должность:</span>
-            <span class="info_desc">Мышинник</span>
+            <span>Группа:</span>
+            <span class="info_desc">{{ authStore.user.group }}</span>
           </div>
         </div>
       </div>
 
-      <BaseButton text="Редактировать профиль" />
+      <BaseButton
+        text="Редактировать профиль"
+        @click="
+          () => {
+            isEdit = true;
+          }
+        " />
     </div>
   </BentoBlock>
 
-  <BentoBlock v-if="isEdit" :is-animated="true">
+  <BentoBlock v-if="isEdit" :is-animated="true" style="max-width: 450px">
     <h1>Редактирование пользователя</h1>
     <hr />
+    <div style="display: flex; flex-direction: column; gap: 15px">
+      <BaseInput
+        title="Имя"
+        :text="currentUserFirstName ?? ''"
+        v-model="currentUserFirstName" />
+      <BaseInput
+        title="Фамилия"
+        :text="currentUserLastName ?? ''"
+        v-model="currentUserLastName" />
+      <BaseInput
+        title="Отчество"
+        :text="currentUserMiddleName ?? ''"
+        v-model="currentUserMiddleName" />
+      <BaseInput
+        title="Почта"
+        :text="currentUserEmail ?? ''"
+        v-model="currentUserEmail" />
+      <BaseInput title="Пароль" type="password" v-model="currentUserPassword" />
+      <BaseInput
+        title="Телефон"
+        type="phone"
+        :text="currentUserPhone ?? ''"
+        v-model="currentUserPhone" />
+
+      <BaseButton
+        text="Редактировать"
+        @click="
+          () => {
+            isEdit = false;
+          }
+        " />
+    </div>
   </BentoBlock>
 </template>
 
@@ -50,6 +88,17 @@
 import BentoBlock from '@/components/BentoBlock.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import { ref } from 'vue';
+import BaseInput from '@/components/BaseInput.vue';
+import { useAuthStore } from '../stores/useAuthStore';
+
+const authStore = useAuthStore();
+
+const currentUserFirstName = ref(authStore.user.firstName);
+const currentUserLastName = ref(authStore.user.lastName);
+const currentUserMiddleName = ref(authStore.user.middleName);
+const currentUserEmail = ref(authStore.user.email);
+const currentUserPassword = ref();
+const currentUserPhone = ref(authStore.user.phoneNumber);
 
 const isEdit = ref(false);
 </script>

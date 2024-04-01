@@ -1,6 +1,6 @@
 <template>
   <header>
-    <ul>
+    <ul v-if="authStore.isLogin">
       <li v-if="authStore.isAdmin">
         <RouterLink to="/admin/dashboard">Дашборд</RouterLink>
       </li>
@@ -18,25 +18,28 @@
       </li>
     </ul>
 
-    <div>
+    <div v-if="authStore.isLogin">
       <RouterLink to="/profile" class="user_info">
         <img class="user_icon" src="/src/assets/icons/user.svg" />
-        <span> Тестов Т.Т. </span>
+        <span> {{ authStore.user.shortName }} </span>
       </RouterLink>
 
-      <a
-        href="#"
+      <RouterLink
+        to="/logout"
         style="
           display: flex;
           align-items: center;
           border: 0.1px solid transparent;
           border-radius: 14px;
+        "
+        @click="
+          () => {
+            authStore.clearUser();
+            router.push('/login');
+          }
         ">
-        <img
-          class="logout_icon"
-          src="/src/assets/icons/logout.svg"
-          v-on:click="toLogoutPage" />
-      </a>
+        <img class="logout_icon" src="/src/assets/icons/logout.svg" />
+      </RouterLink>
     </div>
   </header>
 </template>
@@ -45,14 +48,6 @@
 import { useAuthStore } from '@/stores/useAuthStore';
 import { RouterLink } from 'vue-router';
 import router from '../router/index';
-
-const toProfilePage = () => {
-  router.push('/profile');
-};
-
-const toLogoutPage = () => {
-  router.push('/logout');
-};
 
 const authStore = useAuthStore();
 </script>
@@ -204,4 +199,3 @@ li:hover::after {
   }
 }
 </style>
-@/stores/useAuthStore
