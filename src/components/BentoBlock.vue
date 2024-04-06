@@ -5,7 +5,8 @@
       { animation: isAnimated },
       type,
       { overflowed: overflow === 'auto' },
-    ]">
+    ]"
+  >
     <div class="bento__wrapper">
       <slot></slot>
     </div>

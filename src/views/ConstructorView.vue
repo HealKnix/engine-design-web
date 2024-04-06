@@ -12,7 +12,8 @@
     <BentoWrapper direction="row">
       <BentoBlock class="variable_choice__wrapper" style="width: 425px">
         <div
-          style="display: grid; grid-template-rows: 0fr 1fr 0fr; height: 100%">
+          style="display: grid; grid-template-rows: 0fr 1fr 0fr; height: 100%"
+        >
           <div>
             <h2 style="text-align: center">Выберите переменную</h2>
             <hr />

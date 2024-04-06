@@ -8,7 +8,8 @@
         :key="group.id"
         class="group_card"
         :class="[{ selected: isCurrentGroupSelected(group) }]"
-        v-on:click="setCurrentStudentGroup(group)">
+        v-on:click="setCurrentStudentGroup(group)"
+      >
         <h2>{{ group.groupName }}</h2>
         <span>
           Выполнили
@@ -27,7 +28,8 @@
   <BentoBlock
     v-if="currentStudentGroup"
     :is-animated="true"
-    style="width: fit-content">
+    style="width: fit-content"
+  >
     <div class="group_info">
       <h1>
         Группа
@@ -51,7 +53,8 @@
         :key="index"
         class="student_card"
         :class="[{ selected: isCurrentStudentSelected(student) }]"
-        v-on:click="setCurrentStudent(student)">
+        v-on:click="setCurrentStudent(student)"
+      >
         <h3>
           <span>{{ index + 1 }}.</span> {{ student.name }}
         </h3>

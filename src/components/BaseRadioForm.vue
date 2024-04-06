@@ -6,7 +6,8 @@
         v-for="(item, index) in items"
         :key="item.id"
         :for="`radio_input_${name}_${index}`"
-        class="input__wrapper">
+        class="input__wrapper"
+      >
         <span class="radio_btn_text">
           {{ item.name }}
         </span>
@@ -16,7 +17,8 @@
           :id="`radio_input_${name}_${index}`"
           :checked="item.id === currentItemId"
           :value="item.id"
-          @input="$emit('update:modelValue', item.id)" />
+          @input="$emit('update:modelValue', item.id)"
+        />
       </label>
     </div>
   </div>
@@ -78,9 +80,18 @@
     overflow: hidden;
   }
 
+  .radio_form:has(label > input[type='radio']:active) {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-color-2);
+  }
+
   .radio_form:has(label > input[type='radio']:focus) {
     outline: none;
     box-shadow: 0 0 0 2px var(--accent-color-2);
+  }
+
+  .form_title:has(+ .radio_form > label > input[type='radio']:active) {
+    color: var(--accent-color-2);
   }
 
   .form_title:has(+ .radio_form > label > input[type='radio']:focus) {

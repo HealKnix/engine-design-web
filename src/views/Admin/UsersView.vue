@@ -16,7 +16,8 @@
         :key="index"
         class="user_card"
         :class="[{ selected: isCurrentUserSelected(user) }]"
-        v-on:click="setCurrentUser(user)">
+        v-on:click="setCurrentUser(user)"
+      >
         <span>{{ user.id }}</span>
         <span>{{ user.fullName }}</span>
         <span>{{ UserRoleName[user.role ?? 0] }}</span>
@@ -26,7 +27,8 @@
   <BentoBlock
     v-if="currentUserId !== undefined"
     :is-animated="true"
-    style="max-width: 400px !important">
+    style="max-width: 400px !important"
+  >
     <h1>Редактирование пользователя</h1>
     <hr />
 
@@ -36,65 +38,78 @@
         name="role"
         :items="roleList"
         :current-item-id="currentUserRole"
-        v-model="currentUserRole" />
+        v-model="currentUserRole"
+      />
       <BaseInput
         title="id"
         type="number"
         :autocomplete="false"
         :text="inputId.toString()"
-        v-model="inputId" />
+        v-model="inputId"
+      />
       <BaseInput
         title="Фамилия"
         :text="currentUserLastName"
-        v-model="currentUserLastName" />
+        v-model="currentUserLastName"
+      />
       <BaseInput
         title="Имя"
         :text="currentUserFirstName"
-        v-model="currentUserFirstName" />
+        v-model="currentUserFirstName"
+      />
       <BaseInput
         title="Отчество"
         :text="currentUserMiddleName"
-        v-model="currentUserMiddleName" />
+        v-model="currentUserMiddleName"
+      />
       <BaseInput
         v-if="currentUserRole === UserRole.STUDENT"
         title="Логин"
         :autocomplete="false"
         :text="currentUserLogin"
-        v-model="currentUserLogin" />
+        v-model="currentUserLogin"
+      />
       <BaseInput
         title="Почта"
         type="email"
         :text="currentUserEmail"
-        v-model="currentUserEmail" />
+        v-model="currentUserEmail"
+      />
       <BaseInput
         title="Телефон"
         type="phone"
         :text="currentUserPhone"
-        v-model="currentUserPhone" />
+        v-model="currentUserPhone"
+      />
       <BaseInput
         type="password"
         title="Пароль"
         :autocomplete="false"
-        v-model="currentUserPassword" />
+        v-model="currentUserPassword"
+      />
       <BaseInput
         title="Кафедра"
         :text="currentUserDepartment"
-        v-model="currentUserDepartment" />
+        v-model="currentUserDepartment"
+      />
       <BaseInput
         v-if="currentUserRole === UserRole.STUDENT"
         title="Группа"
         :text="currentUserGroup"
-        v-model="currentUserGroup" />
+        v-model="currentUserGroup"
+      />
     </div>
 
     <BaseButton
       text="Обновить данные"
       @click="updateUser(currentUserId)"
-      style="margin-bottom: 15px" />
+      style="margin-bottom: 15px"
+    />
     <BaseButton
       text="Удалить пользователя"
       @click="deleteUser(currentUserId)"
-      style="background-color: var(--accent-color-3)" />
+      style="background-color: var(--accent-color-3)"
+    />
   </BentoBlock>
 </template>
 

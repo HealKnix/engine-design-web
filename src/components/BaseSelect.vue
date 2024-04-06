@@ -1,40 +1,22 @@
 <template>
-  <div
-    class="form__wrapper"
-    @click="
-      () => {
-        show = true;
-      }
-    "
-    @focusin="
-      () => {
-        show = true;
-      }
-    "
-    @mouseleave="
-      () => {
-        show = false;
-      }
-    ">
+  <div class="form__wrapper" @focusin="fff($el)">
     <BaseInput
       :title="title"
       :text="inputValue"
       :readonly="true"
-      style="margin-bottom: 5px" />
-    <div
-      v-if="show"
-      class="radio_form"
-      @focusout="
-        () => {
-          show = false;
-        }
-      ">
-      <div style="display: flex; flex-direction: column; overflow: auto">
+      style="margin-bottom: 5px"
+    />
+    <div v-if="show" class="radio_form">
+      <div
+        style="display: flex; flex-direction: column; overflow: auto"
+        tabindex="-1"
+      >
         <label
           v-for="(item, index) in items"
           :key="item.id"
           :for="`radio_input_${name}_${index}`"
-          class="input_radio__wrapper">
+          class="input_radio__wrapper"
+        >
           <span class="radio_btn_text">
             {{ item.name }}
           </span>
@@ -50,7 +32,8 @@
               () => {
                 inputCurrentId = item.id;
               }
-            " />
+            "
+          />
         </label>
       </div>
     </div>
@@ -87,6 +70,20 @@
   const inputValue = ref(props.items[props.currentItemId].value);
   const inputCurrentId = ref(props.currentItemId);
   const show = ref(false);
+
+  function fff(element: any) {
+    show.value = true;
+    document.addEventListener('mousedown', (event) => {
+      if (!element.contains(event.target)) {
+        show.value = false;
+      }
+    });
+    document.addEventListener('focusout', (event) => {
+      if (!element.contains(event.target)) {
+        show.value = false;
+      }
+    });
+  }
 </script>
 
 <style scoped>
@@ -114,6 +111,11 @@
   }
 
   .radio_form:has(label > input[type='radio']:focus) {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-color-2);
+  }
+
+  .radio_form:has(label > input[type='radio']:active) {
     outline: none;
     box-shadow: 0 0 0 2px var(--accent-color-2);
   }

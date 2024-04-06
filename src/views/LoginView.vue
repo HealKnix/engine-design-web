@@ -8,7 +8,8 @@
         type="password"
         :text="password"
         title="Пароль"
-        v-model="password" />
+        v-model="password"
+      />
       <!--
       <div style="width: 100%; text-align: center">
         Нет аккаунта?

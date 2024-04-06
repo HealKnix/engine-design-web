@@ -9,10 +9,12 @@
       :step="step"
       :min="min"
       :max="max"
-      :placeholder="type === 'password' ? '********' : text"
+      :placeholder="
+        type === 'password' ? '********' : text ? text.toString() : ''
+      "
       v-model="inputValue"
       :readonly="readonly"
-      :class="{ required: req }"
+      :class="[{ required: req }, { readonly: readonly }]"
       @input="$emit('update:modelValue', inputValue)"
       @focus="
         () => {
@@ -27,7 +29,8 @@
           if (autocomplete) return;
           readonly = true;
         }
-      " />
+      "
+    />
     <span v-if="req" class="required">{{ requiredText }}</span>
   </label>
 </template>
@@ -54,7 +57,7 @@
     text: {
       required: false,
       default: '',
-      type: String,
+      type: [String, Number],
     },
     autocomplete: {
       required: false,
@@ -83,7 +86,7 @@
     },
   });
 
-  const inputValue = ref('');
+  const inputValue = ref<string | number>('');
   const requiredText = ref('Обязательный ввод');
   const readonly = ref(!props.autocomplete || props.readonly);
 </script>
@@ -110,6 +113,18 @@
     padding: 13px 10px;
     font-size: 20px;
     transition: box-shadow 0.15s ease-in-out;
+  }
+
+  .input__wrapper > input.readonly {
+    cursor: default;
+  }
+
+  .input__wrapper > input:active {
+    box-shadow: 0 0 0 2px var(--accent-color-2);
+  }
+
+  .input_title:has(+ input:active) {
+    color: var(--accent-color-2);
   }
 
   .input__wrapper > input:focus {

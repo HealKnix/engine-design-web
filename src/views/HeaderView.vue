@@ -37,7 +37,8 @@
             authStore.clearUser();
             router.push('/login');
           }
-        ">
+        "
+      >
         <img class="logout_icon" src="/src/assets/icons/logout.svg" />
       </RouterLink>
     </div>

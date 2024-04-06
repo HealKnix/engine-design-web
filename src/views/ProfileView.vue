@@ -42,7 +42,8 @@
           () => {
             isEdit = true;
           }
-        " />
+        "
+      />
     </div>
   </BentoBlock>
 
@@ -53,25 +54,30 @@
       <BaseInput
         title="Имя"
         :text="currentUserFirstName ?? ''"
-        v-model="currentUserFirstName" />
+        v-model="currentUserFirstName"
+      />
       <BaseInput
         title="Фамилия"
         :text="currentUserLastName ?? ''"
-        v-model="currentUserLastName" />
+        v-model="currentUserLastName"
+      />
       <BaseInput
         title="Отчество"
         :text="currentUserMiddleName ?? ''"
-        v-model="currentUserMiddleName" />
+        v-model="currentUserMiddleName"
+      />
       <BaseInput
         title="Почта"
         :text="currentUserEmail ?? ''"
-        v-model="currentUserEmail" />
+        v-model="currentUserEmail"
+      />
       <BaseInput title="Пароль" type="password" v-model="currentUserPassword" />
       <BaseInput
         title="Телефон"
         type="phone"
         :text="currentUserPhone ?? ''"
-        v-model="currentUserPhone" />
+        v-model="currentUserPhone"
+      />
 
       <BaseButton
         text="Редактировать"
@@ -79,7 +85,8 @@
           () => {
             isEdit = false;
           }
-        " />
+        "
+      />
     </div>
   </BentoBlock>
 </template>
