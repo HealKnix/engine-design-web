@@ -83,169 +83,169 @@
 </template>
 
 <script setup lang="ts">
-import { useModalsStore } from '../stores/useModalsStore';
+  import { useModalsStore } from '../stores/useModalsStore';
 
-const modalStore = useModalsStore();
+  const modalStore = useModalsStore();
 
-const addAnimation = (toast: any) => {
-  toast.toastShowModal = true;
-};
+  const addAnimation = (toast: any) => {
+    toast.toastShowModal = true;
+  };
 
-const removeAnimation = (toast: any) => {
-  toast.toastShowModal = false;
+  const removeAnimation = (toast: any) => {
+    toast.toastShowModal = false;
 
-  setTimeout(() => {
-    modalStore.updateToasts(toast);
-  }, 250);
-};
+    setTimeout(() => {
+      modalStore.updateToasts(toast);
+    }, 250);
+  };
 </script>
 
 <style scoped>
-.success_svg,
-.error_svg {
-  fill: none;
-  stroke: white;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 8px;
-}
-.warning_svg {
-  fill: white;
-  stroke: none;
-  stroke-width: 0px;
-  transform: translateY(-4px);
-}
-
-.toast__wrapper {
-  position: absolute;
-  top: 25px;
-  right: 0;
-  z-index: 9999;
-  max-height: 95%;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.toast {
-  --margin: 10px;
-
-  cursor: default;
-  display: flex;
-  opacity: 0;
-  width: 350px;
-  margin: var(--margin);
-  transform: translate3d(calc(100% + var(--margin)), 0, 0);
-  min-height: 70px;
-  border-radius: var(--br-small);
-  box-shadow: 0 0 10px 0 rgba(33, 33, 33, 0.2);
-  overflow: hidden;
-  transition: 0.25s ease-in-out;
-  will-change: auto;
-  view-timeline-name: ttt;
-}
-
-.toast::after {
-  display: block;
-  content: '';
-  position: absolute;
-  bottom: 0;
-  width: 0%;
-  height: 3px;
-  animation: toastDelay 5s linear;
-}
-
-.toast:hover::after {
-  animation-play-state: paused;
-}
-
-@keyframes toastDelay {
-  from {
-    width: 100%;
+  .success_svg,
+  .error_svg {
+    fill: none;
+    stroke: white;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 8px;
   }
-  to {
+  .warning_svg {
+    fill: white;
+    stroke: none;
+    stroke-width: 0px;
+    transform: translateY(-4px);
+  }
+
+  .toast__wrapper {
+    position: absolute;
+    top: 25px;
+    right: 0;
+    z-index: 9999;
+    max-height: 95%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .toast {
+    --margin: 10px;
+
+    cursor: default;
+    display: flex;
+    opacity: 0;
+    width: 350px;
+    margin: var(--margin);
+    transform: translate3d(calc(100% + var(--margin)), 0, 0);
+    min-height: 70px;
+    border-radius: var(--br-small);
+    box-shadow: 0 0 10px 0 rgba(33, 33, 33, 0.2);
+    overflow: hidden;
+    transition: 0.25s ease-in-out;
+    will-change: auto;
+    view-timeline-name: ttt;
+  }
+
+  .toast::after {
+    display: block;
+    content: '';
+    position: absolute;
+    bottom: 0;
     width: 0%;
+    height: 3px;
+    animation: toastDelay 5s linear;
   }
-}
 
-.toast.show {
-  transform: translate3d(0, 0, 0);
-  opacity: 1;
-  view-timeline: inherit;
-}
+  .toast:hover::after {
+    animation-play-state: paused;
+  }
 
-.toast.success {
-  background: linear-gradient(to right, var(--toast-success) -10%, white 40%);
-}
-.toast.success::after {
-  background-color: var(--toast-success);
-}
+  @keyframes toastDelay {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 0%;
+    }
+  }
 
-.toast.warning {
-  background: linear-gradient(to right, var(--toast-warning) -10%, white 40%);
-}
-.toast.warning::after {
-  background-color: var(--toast-warning);
-}
+  .toast.show {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    view-timeline: inherit;
+  }
 
-.toast.error {
-  background: linear-gradient(to right, var(--toast-error) -10%, white 40%);
-}
-.toast.error::after {
-  background-color: var(--toast-error);
-}
+  .toast.success {
+    background: linear-gradient(to right, var(--toast-success) -10%, white 40%);
+  }
+  .toast.success::after {
+    background-color: var(--toast-success);
+  }
 
-.toast.show {
-  transform: translate3d(0, 0, 0);
-}
+  .toast.warning {
+    background: linear-gradient(to right, var(--toast-warning) -10%, white 40%);
+  }
+  .toast.warning::after {
+    background-color: var(--toast-warning);
+  }
 
-.icon {
-  flex: 0.5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .toast.error {
+    background: linear-gradient(to right, var(--toast-error) -10%, white 40%);
+  }
+  .toast.error::after {
+    background-color: var(--toast-error);
+  }
 
-.icon > span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 25px;
-  height: 25px;
-  color: white;
-  border-radius: 50%;
-}
+  .toast.show {
+    transform: translate3d(0, 0, 0);
+  }
 
-.icon > span > svg {
-  width: 13px;
-  height: 13px;
-}
+  .icon {
+    flex: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.toast.success > .icon > span {
-  background-color: var(--toast-success);
-}
+  .icon > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    color: white;
+    border-radius: 50%;
+  }
 
-.toast.warning > .icon > span {
-  background-color: var(--toast-warning);
-}
+  .icon > span > svg {
+    width: 13px;
+    height: 13px;
+  }
 
-.toast.error > .icon > span {
-  background-color: var(--toast-error);
-}
+  .toast.success > .icon > span {
+    background-color: var(--toast-success);
+  }
 
-.content {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  flex: 2;
-  padding: 10px;
-}
+  .toast.warning > .icon > span {
+    background-color: var(--toast-warning);
+  }
 
-.content > .title {
-  font-weight: 600;
-}
+  .toast.error > .icon > span {
+    background-color: var(--toast-error);
+  }
 
-.content > .description {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
+  .content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 2;
+    padding: 10px;
+  }
+
+  .content > .title {
+    font-weight: 600;
+  }
+
+  .content > .description {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
 </style>

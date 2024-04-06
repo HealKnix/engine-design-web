@@ -116,138 +116,138 @@
 </template>
 
 <script setup lang="ts">
-import BaseButton from '@/components/BaseButton.vue';
-import BentoBlock from '@/components/BentoBlock.vue';
-import BentoWrapper from '@/components/BentoWrapper.vue';
+  import BaseButton from '@/components/BaseButton.vue';
+  import BentoBlock from '@/components/BentoBlock.vue';
+  import BentoWrapper from '@/components/BentoWrapper.vue';
 
-const createNewRow = () => {
-  const table = document.querySelector('#engine_table');
-  const newRow = document.createElement('tr');
-  if (table) {
-    const columnsCount = table.children.item(0)?.children.length;
-    if (columnsCount) {
-      for (let i = 0; i < columnsCount; i++) {
-        const newColumn = document.createElement('td');
-        const newInput = document.createElement('input');
-        newColumn.appendChild(newInput);
-        if (i === 0) {
-          newColumn.innerText = table.children.length.toString();
-          newColumn.classList.add('number');
+  const createNewRow = () => {
+    const table = document.querySelector('#engine_table');
+    const newRow = document.createElement('tr');
+    if (table) {
+      const columnsCount = table.children.item(0)?.children.length;
+      if (columnsCount) {
+        for (let i = 0; i < columnsCount; i++) {
+          const newColumn = document.createElement('td');
+          const newInput = document.createElement('input');
+          newColumn.appendChild(newInput);
+          if (i === 0) {
+            newColumn.innerText = table.children.length.toString();
+            newColumn.classList.add('number');
+          }
+          newRow.appendChild(newColumn);
         }
-        newRow.appendChild(newColumn);
+        table.appendChild(newRow);
       }
-      table.appendChild(newRow);
     }
-  }
-};
+  };
 </script>
 
 <style scoped>
-.variables__wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-  gap: 15px;
-}
+  .variables__wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 15px;
+  }
 
-.variable_card {
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  font-size: 20px;
-  background-color: var(--accent-color-1);
-  border-radius: var(--br-big);
-  transition: 0.05s ease-in-out;
-}
+  .variable_card {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    background-color: var(--accent-color-1);
+    border-radius: var(--br-big);
+    transition: 0.05s ease-in-out;
+  }
 
-.variable_card:hover {
-  background-color: color-mix(in srgb, var(--accent-color-1), white 10%);
-}
-.variable_card:active {
-  scale: 1.1;
-}
+  .variable_card:hover {
+    background-color: color-mix(in srgb, var(--accent-color-1), white 10%);
+  }
+  .variable_card:active {
+    scale: 1.1;
+  }
 
-.engine_name__wrapper {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
+  .engine_name__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
 
-.engine_name {
-  width: 100%;
-  border: none;
-  padding: 0 5px;
-  color: var(--text-light);
-  font-size: 24px;
-  border-radius: var(--br-small);
-}
+  .engine_name {
+    width: 100%;
+    border: none;
+    padding: 0 5px;
+    color: var(--text-light);
+    font-size: 24px;
+    border-radius: var(--br-small);
+  }
 
-.engine_name:focus {
-  outline: 1px solid #33333333;
-}
+  .engine_name:focus {
+    outline: 1px solid #33333333;
+  }
 
-.variable_choice__wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+  .variable_choice__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
-.table {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow-x: scroll;
-  border-radius: var(--br-big);
-  box-shadow: inset 0 0 0 1px #b3b3b3;
-}
+  .table {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: scroll;
+    border-radius: var(--br-big);
+    box-shadow: inset 0 0 0 1px #b3b3b3;
+  }
 
-.add_new_row_btn {
-  flex-grow: 1;
-  width: 100%;
-  background-color: transparent !important;
-  color: var(--text-light);
-  font-size: 36px;
-  line-height: 16px;
-  font-weight: bold;
-  background-color: #f3f3f3;
-}
+  .add_new_row_btn {
+    flex-grow: 1;
+    width: 100%;
+    background-color: transparent !important;
+    color: var(--text-light);
+    font-size: 36px;
+    line-height: 16px;
+    font-weight: bold;
+    background-color: #f3f3f3;
+  }
 
-.add_new_row_btn:hover {
-  background-color: #3d68ed11 !important;
-  filter: none;
-  border-radius: 0 0 0 0;
-}
+  .add_new_row_btn:hover {
+    background-color: #3d68ed11 !important;
+    filter: none;
+    border-radius: 0 0 0 0;
+  }
 
-.add_new_row_btn:focus {
-  outline: 2px solid var(--accent-color-2);
-  background-color: #3d68ed11 !important;
-}
+  .add_new_row_btn:focus {
+    outline: 2px solid var(--accent-color-2);
+    background-color: #3d68ed11 !important;
+  }
 
-.table__wrapper {
-  display: flex;
-  gap: 25px;
-}
+  .table__wrapper {
+    display: flex;
+    gap: 25px;
+  }
 
-.input__wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
+  .input__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
 
-.input {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 175px;
-  gap: 15px;
-  border-radius: var(--br-small);
-}
+  .input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 175px;
+    gap: 15px;
+    border-radius: var(--br-small);
+  }
 
-.input > label {
-  font-size: 20px;
-  text-wrap: nowrap;
-  font-weight: bold;
-}
+  .input > label {
+    font-size: 20px;
+    text-wrap: nowrap;
+    font-weight: bold;
+  }
 </style>
