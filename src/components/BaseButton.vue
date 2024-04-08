@@ -18,6 +18,8 @@
 
 <style scoped>
   button {
+    --color: var(--accent-color-2);
+
     cursor: pointer;
     width: 100%;
     border: none;
@@ -25,7 +27,9 @@
     padding: 15px 30px;
     font-size: 20px;
     font-weight: 500;
-    background-color: var(--accent-color-2);
+    background-color: var(--color);
+    scale: 1;
+    transition: 0.05s ease-in-out;
   }
 
   button > span {
@@ -33,7 +37,11 @@
   }
 
   button:hover {
-    background-color: color-mix(in srgb, var(--accent-color-2), black 10%);
+    background-color: color-mix(in srgb, var(--color), black 10%);
+  }
+
+  button:active {
+    scale: 0.98;
   }
 
   button:focus {

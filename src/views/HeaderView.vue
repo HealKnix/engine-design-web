@@ -149,10 +149,15 @@
   .logout_icon {
     cursor: pointer;
     border-radius: var(--br-big);
+    transition: 0.05s ease-in-out;
   }
 
   .logout_icon:hover {
     filter: brightness(0.9);
+  }
+
+  .logout_icon:active {
+    scale: 0.95;
   }
 
   .router-link-active::after {

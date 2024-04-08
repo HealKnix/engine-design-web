@@ -57,10 +57,15 @@
       default: '',
       type: String,
     },
-    req: {
+    required: {
       required: false,
       default: false,
       type: Boolean,
+    },
+    requiredText: {
+      required: false,
+      default: '',
+      type: String,
     },
     text: {
       required: false,
@@ -101,9 +106,13 @@
 
   const inputValue = ref<string | number>('');
   const checkRequired = computed(() => {
-    return props.req;
+    return props.required;
   });
-  const requiredText = ref('Обязательный ввод');
+  const requiredText = computed<string>(() => {
+    if (props.requiredText) return props.requiredText
+    if (!inputValue.value) return 'Пустое поле';
+    return 'Обязательное поле';
+  });
   const readonly = ref(!props.autocomplete || props.readonly);
 </script>
 
@@ -147,9 +156,15 @@
     z-index: 2;
   }
 
+  .input__wrapper > .wrapper > input:focus {
+    box-shadow:
+      0 7px 64px rgba(105, 121, 248, 0.1),
+      inset 0 0 0 1px #ecebed;
+  }
+
   .input__wrapper > .wrapper > input.required {
     box-shadow:
-      0 7px 64px rgba(255, 100, 124, 0.07),
+      0 7px 64px rgba(255, 100, 124, 0.1),
       inset 0 0 0 2px var(--accent-color-3);
   }
 
@@ -170,12 +185,7 @@
 
   .input__before:has(+ input:focus) {
     top: 3px !important;
-    box-shadow: 0 7px 64px 0 rgba(105, 121, 248, 0.07);
-  }
-
-  .input__before:has(+ input.required) {
-    top: 3px !important;
-    box-shadow: 0 7px 64px rgba(255, 100, 124, 0.07);
+    /* box-shadow: 0 7px 64px 0 rgba(105, 121, 248, 0.25); */
   }
 
   .input__wrapper > .wrapper > input.readonly {
@@ -196,7 +206,6 @@
 
   .input__before:has(+ input.required) {
     top: 15px !important;
-    box-shadow: 0 7px 64px 0 rgba(255, 100, 124, 0.07);
     background-color: var(--accent-color-3) !important;
   }
 

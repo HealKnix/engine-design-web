@@ -108,7 +108,7 @@
     <BaseButton
       text="Удалить пользователя"
       @click="deleteUser(currentUserId)"
-      style="background-color: var(--accent-color-3)"
+      style="--color: var(--accent-color-3)"
     />
   </BentoBlock>
 </template>
