@@ -102,7 +102,8 @@
     border-radius: 7px;
     font-size: 20px;
     color: #333;
-    outline: 1px solid #616161;
+    box-shadow: 0 7px 64px rgba(66, 66, 66, 0.07);
+    outline: 1px solid #ecebed;
   }
 
   input {

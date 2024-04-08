@@ -3,40 +3,48 @@
     <span v-if="title" class="input_title">
       {{ title }}
     </span>
-    <input
-      :type="type"
-      :id="`input_${title}`"
-      :step="step"
-      :min="min"
-      :max="max"
-      :placeholder="
-        type === 'password' ? '********' : text ? text.toString() : ''
-      "
-      v-model="inputValue"
-      :readonly="readonly"
-      :class="[{ required: req }, { readonly: readonly }]"
-      @input="$emit('update:modelValue', inputValue)"
-      @focus="
-        () => {
-          inputValue = text;
-          if (autocomplete) return;
-          readonly = false;
-        }
-      "
-      @focusout="
-        () => {
-          inputValue = '';
-          if (autocomplete) return;
-          readonly = true;
-        }
-      "
-    />
-    <span v-if="req" class="required">{{ requiredText }}</span>
+    <div class="wrapper">
+      <div class="input__before">
+        <span v-if="checkRequired" class="required">{{ requiredText }}</span>
+      </div>
+      <input
+        :type="type"
+        :id="`input_${title}`"
+        :step="step"
+        :min="min"
+        :max="max"
+        :placeholder="
+          type === 'password'
+            ? '********'
+            : text
+              ? text.toString()
+              : placeholder
+        "
+        v-model="inputValue"
+        :readonly="readonly"
+        :class="[{ required: checkRequired }, { readonly: readonly }]"
+        @input="$emit('update:modelValue', inputValue)"
+        @focus="
+          () => {
+            inputValue = text;
+            if (autocomplete) return;
+            readonly = false;
+          }
+        "
+        @focusout="
+          () => {
+            inputValue = '';
+            if (autocomplete) return;
+            readonly = true;
+          }
+        "
+      />
+    </div>
   </label>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { computed, ref } from 'vue';
 
   const props = defineProps({
     title: {
@@ -84,15 +92,24 @@
       default: Infinity,
       type: Number,
     },
+    placeholder: {
+      required: false,
+      default: '',
+      type: String,
+    },
   });
 
   const inputValue = ref<string | number>('');
+  const checkRequired = computed(() => {
+    return props.req;
+  });
   const requiredText = ref('Обязательный ввод');
   const readonly = ref(!props.autocomplete || props.readonly);
 </script>
 
 <style scoped>
   .input__wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -104,48 +121,91 @@
     transition: 0.15s ease-in-out;
   }
 
-  .input__wrapper > input {
-    border: none;
-    outline: none;
-    box-shadow: 0 0 0 1px #616161;
-    border-radius: 7px;
-    height: 44px;
-    padding: 13px 10px;
-    font-size: 20px;
-    transition: box-shadow 0.15s ease-in-out;
+  .input__wrapper > .wrapper {
+    position: relative;
+    width: 100%;
+    height: 48px;
+    transition: 0.15s ease-in-out;
   }
 
-  .input__wrapper > input.readonly {
+  .input__wrapper > .wrapper:has(input.required) {
+    margin-bottom: 13px;
+  }
+
+  .input__wrapper > .wrapper > input {
+    position: absolute;
+    border: none;
+    outline: none;
+    box-shadow:
+      0 7px 64px rgba(66, 66, 66, 0.07),
+      inset 0 0 0 1px #ecebed;
+    border-radius: var(--br-small);
+    height: 100%;
+    padding: 16px 14px;
+    font-size: 20px;
+    transition: box-shadow 0.15s ease-in-out;
+    z-index: 2;
+  }
+
+  .input__wrapper > .wrapper > input.required {
+    box-shadow:
+      0 7px 64px rgba(255, 100, 124, 0.07),
+      inset 0 0 0 2px var(--accent-color-3);
+  }
+
+  .input__wrapper > .wrapper > .input__before {
+    display: flex;
+    align-items: end;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: var(--accent-color-2);
+    border-radius: var(--br-small);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: 0.15s ease-in-out;
+  }
+
+  .input__before:has(+ input:focus) {
+    top: 3px !important;
+    box-shadow: 0 7px 64px 0 rgba(105, 121, 248, 0.07);
+  }
+
+  .input__before:has(+ input.required) {
+    top: 3px !important;
+    box-shadow: 0 7px 64px rgba(255, 100, 124, 0.07);
+  }
+
+  .input__wrapper > .wrapper > input.readonly {
     cursor: default;
   }
 
-  .input__wrapper > input:active {
-    box-shadow: 0 0 0 2px var(--accent-color-2);
-  }
-
-  .input_title:has(+ input:active) {
+  .input_title:has(+ .wrapper > input:focus) {
     color: var(--accent-color-2);
   }
 
-  .input__wrapper > input:focus {
-    box-shadow: 0 0 0 2px var(--accent-color-2);
+  .input_title:has(+ .wrapper > input.required) {
+    color: var(--accent-color-3);
   }
 
-  .input_title:has(+ input:focus) {
-    color: var(--accent-color-2);
-  }
-
-  .input__wrapper > input::placeholder {
+  .input__wrapper > .wrapper > input::placeholder {
     color: #6161615f;
   }
 
-  .input__wrapper > input.required {
-    box-shadow: 0 0 0 2px #ff647c;
+  .input__before:has(+ input.required) {
+    top: 15px !important;
+    box-shadow: 0 7px 64px 0 rgba(255, 100, 124, 0.07);
+    background-color: var(--accent-color-3) !important;
   }
 
   span.required {
-    line-height: 15px;
-    color: #ff647c;
+    padding-left: 10px;
+    padding-bottom: 1px;
+    font-size: 12px;
+    font-weight: 550;
+    color: white;
     animation: opac 0.5s ease-in-out;
   }
 

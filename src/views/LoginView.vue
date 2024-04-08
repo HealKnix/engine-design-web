@@ -3,12 +3,21 @@
     <div class="login__wrapper">
       <h1 style="text-align: center">Вход</h1>
 
-      <BaseInput type="email" :text="email" title="Почта" v-model="email" />
+      <BaseInput
+        type="email"
+        :text="email"
+        title="Почта или № зачетки"
+        v-model="email"
+        :req="isEmailEmpty"
+        placeholder="Адрес эл. почты или № зачетки"
+      />
       <BaseInput
         type="password"
         :text="password"
         title="Пароль"
         v-model="password"
+        :req="isPasswordEmpty"
+        placeholder="Пароль"
       />
       <!--
       <div style="width: 100%; text-align: center">
@@ -27,7 +36,7 @@
   import BentoBlock from '@/components/BentoBlock.vue';
   import BaseInput from '@/components/BaseInput.vue';
   import BaseButton from '@/components/BaseButton.vue';
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
   import { userList } from '../models/User';
   import { useAuthStore } from '../stores/useAuthStore';
   import { useModalsStore } from '../stores/useModalsStore';
@@ -37,9 +46,29 @@
   const modalStore = useModalsStore();
 
   const email = ref('');
+  const isEmailEmpty = ref(false);
   const password = ref('');
+  const isPasswordEmpty = ref(false);
+
+  watch(email, () => {
+    isEmailEmpty.value = false;
+  });
+
+  watch(password, () => {
+    isPasswordEmpty.value = false;
+  });
 
   const login = () => {
+    if (!email.value) {
+      isEmailEmpty.value = true;
+    }
+    if (!password.value) {
+      isPasswordEmpty.value = true;
+    }
+    if (!password.value || !email.value) {
+      return;
+    }
+
     const findUser = userList.value.find((user) => {
       if (user.email === email.value && user.password === password.value) {
         return user;

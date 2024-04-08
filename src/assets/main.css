@@ -5,22 +5,22 @@
   --text-light: #383838;
   --bg-light: #d9d9d9;
 
-  --bento-block: #ffffff;
+  --bento-block: #FCFCFC;
 
   --not-active: #c0c0c0;
 
-  --accent-color-1: #ffa500;
-  --accent-color-2: #3d68ed;
-  --accent-color-3: #e24c4c;
+  --accent-color-1: #FFA26B;
+  --accent-color-2: #6979F8;
+  --accent-color-3: #FF647C;
 
   /* Radius */
-  --br-small: 7px;
-  --br-big: 14px;
+  --br-small: 6px;
+  --br-big: 12px;
 
   /* Toast */
-  --toast-success: #18de68;
-  --toast-warning: #ffa500;
-  --toast-error: #e31212;
+  --toast-success: #00C48C;
+  --toast-warning: #FFA26B;
+  --toast-error: #FF647C;
 }
 
 * {
