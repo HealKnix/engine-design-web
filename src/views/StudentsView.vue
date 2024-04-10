@@ -375,6 +375,14 @@
     border-radius: var(--br-big);
   }
 
+  .group_card:active {
+    scale: 0.98;
+  }
+
+  .group_card.selected:active {
+    scale: 1;
+  }
+
   .group_card.selected {
     background-color: var(--accent-color-1);
   }

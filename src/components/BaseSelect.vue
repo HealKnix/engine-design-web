@@ -102,7 +102,7 @@
     border-radius: 7px;
     font-size: 20px;
     color: #333;
-    box-shadow: 0 7px 64px rgba(66, 66, 66, 0.07);
+    box-shadow: 0 7px 32px rgba(66, 66, 66, 0.03);
     outline: 1px solid #ecebed;
   }
 

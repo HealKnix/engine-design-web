@@ -99,16 +99,9 @@
             <button class="add_new_row_btn" v-on:click="createNewRow">+</button>
           </div>
 
-          <div class="input__wrapper">
-            <div class="input">
-              <label>a&nbsp;=</label>
-              <input type="text" />
-            </div>
-
-            <div class="input">
-              <label>b&nbsp;=</label>
-              <input type="text" />
-            </div>
+          <div class="inputs__wrapper" style="width: 450px">
+            <BaseInput title="a =" />
+            <BaseInput title="b =" />
           </div>
         </div>
       </BentoBlock>
@@ -120,6 +113,7 @@
   import BaseButton from '@/components/BaseButton.vue';
   import BentoBlock from '@/components/BentoBlock.vue';
   import BentoWrapper from '@/components/BentoWrapper.vue';
+  import BaseInput from '@/components/BaseInput.vue';
 
   const createNewRow = () => {
     const table = document.querySelector('#engine_table');
@@ -222,7 +216,8 @@
   }
 
   .add_new_row_btn:focus {
-    outline: 2px solid var(--accent-color-2);
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--accent-color-2);
     background-color: #3d68ed11 !important;
   }
 
@@ -231,24 +226,22 @@
     gap: 25px;
   }
 
-  .input__wrapper {
+  .inputs__wrapper {
     display: flex;
     flex-direction: column;
     gap: 25px;
   }
 
-  .input {
-    display: flex;
+  .input__wrapper {
     flex-direction: row;
-    align-items: center;
-    width: 175px;
-    gap: 15px;
-    border-radius: var(--br-small);
   }
 
-  .input > label {
-    font-size: 20px;
+  .input__wrapper {
+    align-items: center;
+  }
+
+  .input__wrapper > span {
     text-wrap: nowrap;
-    font-weight: bold;
+    height: fit-content;
   }
 </style>

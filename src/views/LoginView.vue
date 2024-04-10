@@ -8,7 +8,7 @@
         :text="email"
         title="Почта или № зачетки"
         v-model="email"
-        :required="isEmailEmpty"
+        :req="isEmailEmpty"
         placeholder="Адрес эл. почты или № зачетки"
       />
       <BaseInput
@@ -16,7 +16,7 @@
         :text="password"
         title="Пароль"
         v-model="password"
-        :required="isPasswordEmpty"
+        :req="isPasswordEmpty"
         placeholder="Пароль"
       />
       <!--

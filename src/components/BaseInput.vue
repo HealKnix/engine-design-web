@@ -57,15 +57,10 @@
       default: '',
       type: String,
     },
-    required: {
+    req: {
       required: false,
       default: false,
       type: Boolean,
-    },
-    requiredText: {
-      required: false,
-      default: '',
-      type: String,
     },
     text: {
       required: false,
@@ -106,13 +101,9 @@
 
   const inputValue = ref<string | number>('');
   const checkRequired = computed(() => {
-    return props.required;
+    return props.req;
   });
-  const requiredText = computed<string>(() => {
-    if (props.requiredText) return props.requiredText
-    if (!inputValue.value) return 'Пустое поле';
-    return 'Обязательное поле';
-  });
+  const requiredText = ref('Обязательный ввод');
   const readonly = ref(!props.autocomplete || props.readonly);
 </script>
 
@@ -137,6 +128,10 @@
     transition: 0.15s ease-in-out;
   }
 
+  .input__wrapper > .wrapper:active {
+    scale: 0.99;
+  }
+
   .input__wrapper > .wrapper:has(input.required) {
     margin-bottom: 13px;
   }
@@ -146,7 +141,7 @@
     border: none;
     outline: none;
     box-shadow:
-      0 7px 64px rgba(66, 66, 66, 0.07),
+      0 7px 32px rgba(66, 66, 66, 0.03),
       inset 0 0 0 1px #ecebed;
     border-radius: var(--br-small);
     height: 100%;
@@ -156,15 +151,24 @@
     z-index: 2;
   }
 
-  .input__wrapper > .wrapper > input:focus {
+  .input__wrapper > .wrapper > input {
+    position: absolute;
+    border: none;
+    outline: none;
     box-shadow:
-      0 7px 64px rgba(105, 121, 248, 0.1),
+      0 7px 32px rgba(66, 66, 66, 0.03),
       inset 0 0 0 1px #ecebed;
+    border-radius: var(--br-small);
+    height: 100%;
+    padding: 16px 14px;
+    font-size: 20px;
+    transition: box-shadow 0.15s ease-in-out;
+    z-index: 2;
   }
 
   .input__wrapper > .wrapper > input.required {
     box-shadow:
-      0 7px 64px rgba(255, 100, 124, 0.1),
+      0 7px 64px rgba(255, 100, 124, 0.07),
       inset 0 0 0 2px var(--accent-color-3);
   }
 
@@ -185,7 +189,12 @@
 
   .input__before:has(+ input:focus) {
     top: 3px !important;
-    /* box-shadow: 0 7px 64px 0 rgba(105, 121, 248, 0.25); */
+    box-shadow: 0 7px 64px 0 rgba(105, 121, 248, 0.07);
+  }
+
+  .input__before:has(+ input.required) {
+    top: 3px !important;
+    box-shadow: 0 7px 64px rgba(255, 100, 124, 0.07);
   }
 
   .input__wrapper > .wrapper > input.readonly {
@@ -206,6 +215,7 @@
 
   .input__before:has(+ input.required) {
     top: 15px !important;
+    box-shadow: 0 7px 64px 0 rgba(255, 100, 124, 0.07);
     background-color: var(--accent-color-3) !important;
   }
 

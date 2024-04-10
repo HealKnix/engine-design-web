@@ -28,7 +28,6 @@
     font-size: 20px;
     font-weight: 500;
     background-color: var(--color);
-    scale: 1;
     transition: 0.05s ease-in-out;
   }
 
@@ -40,11 +39,13 @@
     background-color: color-mix(in srgb, var(--color), black 10%);
   }
 
-  button:active {
-    scale: 0.98;
+  button:focus {
+    outline: 2px solid var(--color);
+    outline-offset: 2px;
+    outline-width: 2.5px;
   }
 
-  button:focus {
-    outline: 2px solid #333;
+  button:active {
+    scale: 0.98;
   }
 </style>

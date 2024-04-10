@@ -248,9 +248,19 @@
     border-radius: var(--br-small);
     transition: 0.05s ease-in-out;
   }
+  .user_card:active {
+    scale: 0.99;
+  }
   .user_card.selected {
     background-color: var(--accent-color-1);
     scale: 1.01;
+  }
+  .user_card > * {
+    font-weight: 500;
+    transition: 0.15s ease-in-out;
+  }
+  .user_card.selected > * {
+    font-weight: bold;
   }
   .user_card:not(.selected):hover {
     background-color: #ffa60066;
