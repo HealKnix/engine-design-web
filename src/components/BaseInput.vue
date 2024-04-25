@@ -151,23 +151,14 @@
     height: 100%;
     padding: 16px 14px;
     font-size: 20px;
-    transition: box-shadow 0.15s ease-in-out;
+    transition:
+      box-shadow 0.15s ease-in-out,
+      color 0.15s ease-in-out;
     z-index: 2;
   }
 
-  .input__wrapper > .wrapper > input {
-    position: absolute;
-    border: none;
-    outline: none;
-    box-shadow:
-      0 7px 32px rgba(66, 66, 66, 0.03),
-      inset 0 0 0 1px #ecebed;
-    border-radius: var(--br-small);
-    height: 100%;
-    padding: 16px 14px;
-    font-size: 20px;
-    transition: box-shadow 0.15s ease-in-out;
-    z-index: 2;
+  .input__wrapper > .wrapper > input:active {
+    color: var(--accent-color-2);
   }
 
   .input__wrapper > .wrapper > input.required {
