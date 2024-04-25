@@ -22,7 +22,11 @@
         "
         v-model="inputValue"
         :readonly="readonly"
-        :class="[{ required: checkRequired }, { readonly: readonly }]"
+        :class="[
+          { required: checkRequired },
+          { readonly: readonly },
+          { is_not_empty: text },
+        ]"
         @input="$emit('update:modelValue', inputValue)"
         @focus="
           () => {
@@ -211,6 +215,10 @@
 
   .input__wrapper > .wrapper > input::placeholder {
     color: #6161615f;
+  }
+
+  .input__wrapper > .wrapper > input.is_not_empty::placeholder {
+    color: var(--text-light);
   }
 
   .input__before:has(+ input.required) {
