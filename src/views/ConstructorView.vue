@@ -100,8 +100,8 @@
           </div>
 
           <div class="inputs__wrapper" style="width: 450px">
-            <BaseInput title="a =" />
-            <BaseInput title="b =" />
+            <BaseInput title="a" />
+            <BaseInput title="b" />
           </div>
         </div>
       </BentoBlock>
@@ -230,18 +230,5 @@
     display: flex;
     flex-direction: column;
     gap: 25px;
-  }
-
-  .input__wrapper {
-    flex-direction: row;
-  }
-
-  .input__wrapper {
-    align-items: center;
-  }
-
-  .input__wrapper > span {
-    text-wrap: nowrap;
-    height: fit-content;
   }
 </style>
