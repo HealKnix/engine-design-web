@@ -108,7 +108,7 @@
   };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .success_svg,
   .error_svg {
     fill: none;

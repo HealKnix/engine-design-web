@@ -53,7 +53,7 @@
   const authStore = useAuthStore();
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   header {
     display: flex;
     flex-wrap: wrap;

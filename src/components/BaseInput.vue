@@ -111,7 +111,7 @@
   const readonly = ref(!props.autocomplete || props.readonly);
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .input__wrapper {
     position: relative;
     display: flex;

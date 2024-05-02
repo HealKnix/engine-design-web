@@ -21,7 +21,7 @@
   });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   button {
     --color: var(--color-primary);
 

@@ -33,7 +33,7 @@
   });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .bento__wrapper {
     width: auto;
     height: 100%;

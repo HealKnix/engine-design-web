@@ -120,7 +120,7 @@
   };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .engines__wrapper {
     display: flex;
     flex-wrap: wrap;

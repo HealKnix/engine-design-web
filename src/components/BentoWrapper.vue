@@ -14,7 +14,7 @@
   });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .bento__wrapper {
     display: flex;
     gap: 15px;

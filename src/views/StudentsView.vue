@@ -374,7 +374,7 @@
   };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .groups__wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

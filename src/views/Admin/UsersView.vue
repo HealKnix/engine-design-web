@@ -222,7 +222,7 @@
   };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .users__wrapper {
     display: flex;
     flex-direction: column;

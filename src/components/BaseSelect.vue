@@ -83,7 +83,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .form__wrapper {
     display: flex;
     flex-direction: column;
@@ -107,11 +107,6 @@
   input {
     width: 0;
     opacity: 0;
-  }
-
-  .radio_form:hover {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--color-primary);
   }
 
   .radio_form:has(label > input[type='radio']:focus) {

@@ -110,7 +110,7 @@
   const isEdit = ref(false);
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .info__wrapper {
     display: flex;
     flex-direction: column;

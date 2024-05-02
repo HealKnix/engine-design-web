@@ -49,7 +49,7 @@
   });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .form__wrapper {
     display: flex;
     flex-direction: column;

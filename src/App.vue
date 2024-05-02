@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
   .app__wrapper {
     display: grid;
     grid-template-rows: 0fr 1fr;

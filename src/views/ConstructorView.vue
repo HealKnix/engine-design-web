@@ -96,7 +96,7 @@
                 </td>
               </tr>
             </table>
-            <button class="add_new_row_btn" v-on:click="createNewRow">+</button>
+            <button class="add_new_row_btn" @click="createNewRow">+</button>
           </div>
 
           <div class="inputs__wrapper" style="width: 450px">
@@ -137,7 +137,7 @@
   };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .variables__wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
