@@ -4,13 +4,10 @@
       :title="title"
       :text="inputValue"
       :readonly="true"
-      style="margin-bottom: 5px"
+      style="margin-bottom: 5px; z-index: 1"
     />
-    <div v-if="show" class="radio_form">
-      <div
-        style="display: flex; flex-direction: column; overflow: auto"
-        tabindex="-1"
-      >
+    <div v-if="show" class="radio_form" style="z-index: 2">
+      <div style="display: flex; flex-direction: column; overflow: auto">
         <label
           v-for="(item, index) in items"
           :key="item.id"
@@ -94,6 +91,7 @@
   }
 
   .radio_form {
+    background-color: white;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -102,7 +100,7 @@
     border-radius: 7px;
     font-size: 20px;
     color: #333;
-    box-shadow: 0 7px 32px rgba(66, 66, 66, 0.03);
+    box-shadow: 0 7px 32px rgba(99, 99, 99, 0.07);
     outline: 1px solid #ecebed;
   }
 
@@ -111,14 +109,19 @@
     opacity: 0;
   }
 
+  .radio_form:hover {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-primary);
+  }
+
   .radio_form:has(label > input[type='radio']:focus) {
     outline: none;
-    box-shadow: 0 0 0 2px var(--accent-color-2);
+    box-shadow: 0 0 0 2px var(--color-primary);
   }
 
   .radio_form:has(label > input[type='radio']:active) {
     outline: none;
-    box-shadow: 0 0 0 2px var(--accent-color-2);
+    box-shadow: 0 0 0 2px var(--color-primary);
   }
 
   .input_radio__wrapper {
@@ -129,7 +132,11 @@
   }
 
   .input_radio__wrapper:hover {
-    background-color: #3d69ed10;
+    background-color: color-mix(
+      in srgb,
+      var(--color-primary) 10%,
+      transparent 0%
+    );
   }
 
   .input_radio__wrapper:first-child {
@@ -141,7 +148,7 @@
   }
 
   .input_radio__wrapper:has(input[type='radio']:checked) {
-    background-color: var(--accent-color-2);
+    background-color: var(--color-primary);
   }
   .input_radio__wrapper:has(input[type='radio']:checked) > span {
     color: white;

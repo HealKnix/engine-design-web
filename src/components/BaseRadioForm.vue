@@ -83,20 +83,20 @@
 
   .radio_form:has(label > input[type='radio']:active) {
     outline: none;
-    box-shadow: 0 0 0 2px var(--accent-color-2);
+    box-shadow: 0 0 0 2px var(--color-primary);
   }
 
   .radio_form:has(label > input[type='radio']:focus) {
     outline: none;
-    box-shadow: 0 0 0 2px var(--accent-color-2);
+    box-shadow: 0 0 0 2px var(--color-primary);
   }
 
   .form_title:has(+ .radio_form > label > input[type='radio']:active) {
-    color: var(--accent-color-2);
+    color: var(--color-primary);
   }
 
   .form_title:has(+ .radio_form > label > input[type='radio']:focus) {
-    color: var(--accent-color-2);
+    color: var(--color-primary);
   }
 
   .input__wrapper {
@@ -119,7 +119,7 @@
   }
 
   .input__wrapper:has(input[type='radio']:checked) {
-    background-color: var(--accent-color-2);
+    background-color: var(--color-primary);
   }
   .input__wrapper:has(input[type='radio']:checked) > span {
     color: white;

@@ -152,13 +152,13 @@
     width: 50px;
     height: 50px;
     font-size: 20px;
-    background-color: var(--accent-color-1);
+    background-color: var(--color-yellow);
     border-radius: var(--br-big);
     transition: 0.05s ease-in-out;
   }
 
   .variable_card:hover {
-    background-color: color-mix(in srgb, var(--accent-color-1), white 10%);
+    background-color: color-mix(in srgb, var(--color-yellow), white 10%);
   }
   .variable_card:active {
     scale: 1.1;
@@ -174,7 +174,7 @@
     width: 100%;
     border: none;
     padding: 0 5px;
-    color: var(--text-light);
+    color: var(--text-primary);
     font-size: 24px;
     border-radius: var(--br-small);
   }
@@ -202,7 +202,7 @@
     flex-grow: 1;
     width: 100%;
     background-color: transparent !important;
-    color: var(--text-light);
+    color: var(--text-primary);
     font-size: 36px;
     line-height: 16px;
     font-weight: bold;
@@ -217,7 +217,7 @@
 
   .add_new_row_btn:focus {
     outline: none;
-    box-shadow: inset 0 0 0 2px var(--accent-color-2);
+    box-shadow: inset 0 0 0 2px var(--color-primary);
     background-color: #3d68ed11 !important;
   }
 

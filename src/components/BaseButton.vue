@@ -1,5 +1,5 @@
 <template>
-  <button>
+  <button :style="`--color: ${color}`">
     <span class="btn_text">
       {{ text }}
     </span>
@@ -13,12 +13,17 @@
       default: '',
       type: String,
     },
+    color: {
+      require: false,
+      default: 'var(--color-primary)',
+      type: String,
+    },
   });
 </script>
 
 <style scoped>
   button {
-    --color: var(--accent-color-2);
+    --color: var(--color-primary);
 
     cursor: pointer;
     width: 100%;
@@ -28,7 +33,8 @@
     font-size: 20px;
     font-weight: 500;
     background-color: var(--color);
-    transition: 0.05s ease-in-out;
+    transition: 0.15s ease-in-out;
+    will-change: auto;
   }
 
   button > span {
@@ -36,7 +42,8 @@
   }
 
   button:hover {
-    background-color: color-mix(in srgb, var(--color), black 10%);
+    transform: translateY(-3px);
+    box-shadow: 0 3px 6px color-mix(in srgb, var(--color) 50%, transparent 0%);
   }
 
   button:focus {

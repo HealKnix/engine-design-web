@@ -92,7 +92,7 @@
   }
 
   li > * {
-    color: var(--text-light);
+    color: var(--text-primary);
   }
 
   li::after {
@@ -111,7 +111,7 @@
     height: 5px;
     bottom: -5.5px;
     border-radius: 1000rem;
-    background-color: var(--accent-color-1);
+    background-color: var(--color-yellow);
   }
 
   .user_info {
@@ -143,7 +143,7 @@
     height: 5px;
     bottom: -5.5px;
     border-radius: 1000rem;
-    background-color: var(--accent-color-1);
+    background-color: var(--color-yellow);
   }
 
   .logout_icon {
@@ -167,7 +167,7 @@
     height: 5px;
     bottom: -5.5px;
     border-radius: 1000rem;
-    background-color: var(--accent-color-1);
+    background-color: var(--color-yellow);
   }
 
   @media (width < 1433px) {

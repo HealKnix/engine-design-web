@@ -145,7 +145,7 @@
     border: none;
     outline: none;
     box-shadow:
-      0 7px 32px rgba(66, 66, 66, 0.03),
+      0 7px 32px rgba(99, 99, 99, 0.07),
       inset 0 0 0 1px #ecebed;
     border-radius: var(--br-small);
     height: 100%;
@@ -158,13 +158,13 @@
   }
 
   .input__wrapper > .wrapper > input:active {
-    color: var(--accent-color-2);
+    color: var(--color-primary);
   }
 
   .input__wrapper > .wrapper > input.required {
     box-shadow:
       0 7px 64px rgba(255, 100, 124, 0.07),
-      inset 0 0 0 2px var(--accent-color-3);
+      inset 0 0 0 2px var(--color-red);
   }
 
   .input__wrapper > .wrapper > .input__before {
@@ -174,7 +174,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    background-color: var(--accent-color-2);
+    background-color: var(--color-primary);
     border-radius: var(--br-small);
     width: 100%;
     height: 100%;
@@ -197,11 +197,11 @@
   }
 
   .input_title:has(+ .wrapper > input:focus) {
-    color: var(--accent-color-2);
+    color: var(--color-primary);
   }
 
   .input_title:has(+ .wrapper > input.required) {
-    color: var(--accent-color-3);
+    color: var(--color-red);
   }
 
   .input__wrapper > .wrapper > input::placeholder {
@@ -209,13 +209,13 @@
   }
 
   .input__wrapper > .wrapper > input.is_not_empty::placeholder {
-    color: var(--text-light);
+    color: var(--text-primary);
   }
 
   .input__before:has(+ input.required) {
     top: 15px !important;
     box-shadow: 0 7px 64px 0 rgba(255, 100, 124, 0.07);
-    background-color: var(--accent-color-3) !important;
+    background-color: var(--color-red) !important;
   }
 
   span.required {

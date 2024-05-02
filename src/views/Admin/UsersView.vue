@@ -108,7 +108,7 @@
     <BaseButton
       text="Удалить пользователя"
       @click="deleteUser(currentUserId)"
-      style="--color: var(--accent-color-3)"
+      style="--color: var(--color-red)"
     />
   </BentoBlock>
 </template>
@@ -244,7 +244,7 @@
     display: grid;
     grid-template-columns: 60px 1fr 1fr;
     padding: 10px;
-    border: 1px solid var(--accent-color-1);
+    border: 1px solid var(--color-yellow);
     border-radius: var(--br-small);
     transition: 0.05s ease-in-out;
   }
@@ -252,7 +252,7 @@
     scale: 0.99;
   }
   .user_card.selected {
-    background-color: var(--accent-color-1);
+    background-color: var(--color-yellow);
     scale: 1.01;
   }
   .user_card > * {

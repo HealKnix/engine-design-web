@@ -134,16 +134,16 @@
     align-items: center;
     gap: 10px;
     padding: 30px 23px;
-    box-shadow: 0 0 0 3px var(--accent-color-1);
+    box-shadow: 0 0 0 3px var(--color-yellow);
     border-radius: var(--br-big);
   }
   .engine_card.not-active {
     cursor: default;
-    box-shadow: 0 0 0 3px var(--not-active);
+    box-shadow: 0 0 0 3px var(--color-disabled);
   }
 
   .engine_card.selected {
-    background-color: var(--accent-color-1);
+    background-color: var(--color-yellow);
   }
 
   .engine_card:not(.not-active):not(.selected):hover {

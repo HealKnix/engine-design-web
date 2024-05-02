@@ -37,12 +37,6 @@
           {{ currentStudentGroup.groupName }}
         </span>
       </h1>
-
-      <h4 v-if="currentStudent">
-        <a class="issue_new_engine" v-on:click="toNextPage">
-          Выдать новый двигатель
-        </a>
-      </h4>
     </div>
 
     <hr />
@@ -58,6 +52,26 @@
         <h3>
           <span>{{ index + 1 }}.</span> {{ student.name }}
         </h3>
+        <div
+          v-if="isCurrentStudentSelected(student)"
+          class="calculated_engines__wrapper"
+        >
+          <div
+            class="calculated_engine"
+            v-for="(engine, index) in student.engines"
+            :key="index"
+          >
+            <span class="engine_name">{{ engine.name }}</span>
+            <span class="calculated_tables"
+              >Кол-во решённых таблиц: <b>{{ engine.completeTables }}</b></span
+            >
+          </div>
+        </div>
+        <BaseButton
+          v-if="isCurrentStudentSelected(student)"
+          text="Выдать двигатель"
+          @click="toNextPage(student.id)"
+        />
       </div>
     </div>
   </BentoBlock>
@@ -65,12 +79,13 @@
 
 <script setup lang="ts">
   import BentoBlock from '@/components/BentoBlock.vue';
+  import BaseButton from '@/components/BaseButton.vue';
   import { ref } from 'vue';
   import router from '../router/index';
 
-  const toNextPage = () => {
+  const toNextPage = (studentId: number) => {
     router.push({
-      path: `/students/${currentStudent.value.id}/engine-choice`,
+      path: `/students/${studentId}/engine-choice`,
     });
   };
 
@@ -127,7 +142,19 @@
         {
           id: 6,
           name: 'Тестов Тест Тестович 3',
-          isComplete: true,
+          isComplete: false,
+          engines: [
+            {
+              id: 0,
+              name: 'Асинхронный с кз',
+              completeTables: 3,
+            },
+            {
+              id: 1,
+              name: 'Асинхронный',
+              completeTables: 1,
+            },
+          ],
         },
       ],
     },
@@ -371,7 +398,7 @@
     align-items: center;
     gap: 10px;
     padding: 30px 20px;
-    box-shadow: 0 0 0 3px var(--accent-color-1);
+    box-shadow: 0 0 0 3px var(--color-yellow);
     border-radius: var(--br-big);
   }
 
@@ -384,7 +411,7 @@
   }
 
   .group_card.selected {
-    background-color: var(--accent-color-1);
+    background-color: var(--color-yellow);
   }
 
   .group_card:not(.selected):hover {
@@ -402,14 +429,14 @@
     display: flex;
     flex-direction: column;
     align-items: left;
-    gap: 10px;
+    gap: 15px;
     padding: 10px;
-    border: 3px solid var(--accent-color-1);
+    border: 3px solid var(--color-yellow);
     border-radius: var(--br-big);
   }
 
   .student_card.selected {
-    background-color: var(--accent-color-1);
+    background-color: var(--color-yellow);
   }
 
   .student_card:not(.selected):hover {
@@ -421,6 +448,28 @@
   }
 
   .issue_new_engine:hover {
-    color: var(--accent-color-2);
+    color: var(--color-primary);
+  }
+
+  .calculated_engines__wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .calculated_engine {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-wrap: wrap;
+    width: min-content;
+    background-color: var(--color-white);
+    border-radius: var(--br-big);
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .calculated_engine > .engine_name {
+    font-weight: 600;
   }
 </style>
