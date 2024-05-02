@@ -101,7 +101,7 @@
     font-size: 20px;
     color: #333;
     box-shadow: 0 7px 32px rgba(99, 99, 99, 0.07);
-    outline: 1px solid #ecebed;
+    outline: 1px solid var(--color-border-1);
   }
 
   input {
@@ -124,6 +124,11 @@
     font-weight: 500;
     padding: 15px 25px;
     background-color: white;
+  }
+
+  .input_radio__wrapper:not(:last-child) {
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--color-border-1) 50%, transparent 0%);
   }
 
   .input_radio__wrapper:hover {

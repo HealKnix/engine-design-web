@@ -77,7 +77,7 @@
     font-size: 20px;
     color: #333;
     box-shadow: 0 7px 32px rgba(66, 66, 66, 0.03);
-    outline: 1px solid #ecebed;
+    outline: 1px solid var(--color-border-1);
     overflow: hidden;
   }
 
@@ -106,8 +106,17 @@
     background-color: white;
   }
 
+  .input__wrapper:not(:last-child) {
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--color-border-1) 50%, transparent 0%);
+  }
+
   .input__wrapper:hover {
-    background-color: #3d69ed10;
+    background-color: color-mix(
+      in srgb,
+      var(--color-primary) 10%,
+      transparent 0%
+    );
   }
 
   .input__wrapper:first-child {

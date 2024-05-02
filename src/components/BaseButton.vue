@@ -43,7 +43,7 @@
 
   button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 3px 6px color-mix(in srgb, var(--color) 50%, transparent 0%);
+    box-shadow: 0 3px 12px color-mix(in srgb, var(--color) 60%, transparent 0%);
   }
 
   button:focus {
