@@ -1,17 +1,12 @@
-from typing import Union
+from typing import List, Optional
 
 from pydantic import BaseModel
 
-class UserBase(BaseModel):
-    full_name: str
+from sqlalchemy.orm import deferred
 
 
-class UserCreate(UserBase):
-    password: str
 
 
-class User(UserBase):
-    user_id: int
 
-    class Config:
-        orm_mode = True
+
+
