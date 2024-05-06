@@ -1,9 +1,9 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from server.src import database
+from database import Base
 
-class CharacteristicFormula(database.Base):
+class CharacteristicFormula(Base):
     __tablename__ = 'characteristic_formulas'
 
     id_characteristic = Column(Integer, ForeignKey('characteristics.id'), primary_key=True)
@@ -11,7 +11,7 @@ class CharacteristicFormula(database.Base):
     characteristic = relationship("Characteristic", backref="related_formulas")
     formula = relationship("Formula", backref="related_characteristics")
 
-class VariableFormula(database.Base):
+class VariableFormula(Base):
     __tablename__ = 'variable_formula'
 
     id_variable = Column(Integer, ForeignKey('variables.id'), primary_key=True)
@@ -19,7 +19,7 @@ class VariableFormula(database.Base):
     variable = relationship("Variable", backref="related_formulas", overlaps="formula,variables")
     formula = relationship("Formula", backref="related_variables", overlaps="formula,variables")
 
-class VariantUser(database.Base):
+class VariantUser(Base):
     __tablename__ = 'variants_users'
 
     id_variant = Column(Integer, ForeignKey('variants.id'), primary_key=True)

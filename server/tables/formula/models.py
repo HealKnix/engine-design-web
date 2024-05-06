@@ -1,8 +1,9 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from server.src import database
-class Formula(database.Base):
+from database import Base
+
+class Formula(Base):
     __tablename__ = 'formula'
 
     id = Column(Integer, primary_key=True, autoincrement=True)

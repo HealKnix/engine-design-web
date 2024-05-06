@@ -1,9 +1,9 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from server.src import database
+from database import Base
 
-class Characteristic(database.Base):
+class Characteristic(Base):
     __tablename__ = 'characteristics'
 
     id = Column(Integer, primary_key=True, autoincrement=True)

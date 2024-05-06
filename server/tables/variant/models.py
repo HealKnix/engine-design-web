@@ -1,8 +1,9 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Float, Boolean
 from sqlalchemy.orm import relationship
 
-from server.src import database
-class Variant(database.Base):
+from database import Base
+
+class Variant(Base):
     __tablename__ = 'variants'
 
     id = Column(Integer, primary_key=True, autoincrement=True)

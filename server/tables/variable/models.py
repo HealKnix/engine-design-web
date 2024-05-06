@@ -1,10 +1,10 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from server.src import database
+from database import Base
 
 
-class Variable(database.Base):
+class Variable(Base):
     __tablename__ = 'variables'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
