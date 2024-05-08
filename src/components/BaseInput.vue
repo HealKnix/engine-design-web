@@ -141,8 +141,9 @@
   }
 
   .input__wrapper > .wrapper > input {
-    position: absolute;
+    width: 100%;
     border: none;
+    position: absolute;
     outline: none;
     box-shadow:
       0 7px 32px rgba(99, 99, 99, 0.07),
@@ -151,9 +152,11 @@
     height: 100%;
     padding: 16px 14px;
     font-size: 20px;
-    transition:
-      box-shadow 0.15s ease-in-out,
-      color 0.15s ease-in-out;
+    transition: 0.15s ease-in-out;
+    -webkit-transition: 0.15s ease-in-out;
+    -moz-transition: 0.15s ease-in-out;
+    -ms-transition: 0.15s ease-in-out;
+    -o-transition: 0.15s ease-in-out;
     z-index: 2;
   }
 
