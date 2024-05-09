@@ -40,7 +40,9 @@
             }
           "
         >
-          <h2>{{ tables[currentTableId].name }}</h2>
+          <h2>
+            {{ tables[currentTableId].name }}
+          </h2>
           <hr />
           <div class="table__wrapper" style="margin-bottom: 50px">
             <div class="table">
@@ -114,7 +116,7 @@
           <div class="tables__wrapper">
             <div
               v-for="(table, index) in tables"
-              :key="index"
+              :key="table.id"
               class="tables__wrapper__table__wrapper"
             >
               <div
@@ -131,7 +133,7 @@
               <div
                 v-if="tables.length != 1"
                 class="tables__wrapper__delete_table_btn"
-                @click="deleteTableById(index)"
+                @click="deleteTableById(table.id)"
               >
                 X
               </div>
@@ -160,6 +162,7 @@
   import BaseInput from '@/components/BaseInput.vue';
   import { onMounted, ref, type Ref } from 'vue';
   import { useModalsStore } from '@/stores/useModalsStore';
+  import type { Table } from '@/models/Table';
 
   const modalStore = useModalsStore();
 
@@ -228,7 +231,6 @@
         ];
       if (!column.value) column.value = '';
       column.value += varName;
-      // inputHTML.value += varName;
       inputHTML.focus();
     }
   };
@@ -243,22 +245,22 @@
 
   const vars = ref<string[]>(['a', 'b', 'c', 'Y', 'z']);
 
-  console.log(vars);
-
   const currentTableId = ref<number>(0);
-  const tables = ref<
+  const tables = ref<Table[]>([
     {
-      name: String;
-      rows: {
-        number: Number;
-        formula: String;
-        dim: String;
-        columns: Ref<number | null | string>[];
-      }[];
-    }[]
-  >([
-    {
+      id: 0,
       name: 'Таблица 1',
+      s: [0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.024],
+      initial_data: [
+        {
+          name: 'a',
+          value: 12.3,
+        },
+        {
+          name: 'b',
+          value: 1.65,
+        },
+      ],
       rows: [
         {
           number: 1,
@@ -305,7 +307,19 @@
       ],
     },
     {
+      id: 1,
       name: 'Таблица 2',
+      s: [0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.024],
+      initial_data: [
+        {
+          name: 'a',
+          value: 12.3,
+        },
+        {
+          name: 'b',
+          value: 1.65,
+        },
+      ],
       rows: [
         {
           number: 1,
@@ -353,6 +367,7 @@
     },
   ]);
 
+  let tablesCount = tables.value.length;
   const createNewTable = (id: number) => {
     if (tables.value.length >= 10) {
       modalStore.openToastModal(
@@ -363,7 +378,19 @@
     }
 
     tables.value.push({
-      name: `Таблица ${id + 1}`,
+      id: tablesCount,
+      name: `Таблица ${++tablesCount}`,
+      s: [0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.024],
+      initial_data: [
+        {
+          name: 'a',
+          value: 12.3,
+        },
+        {
+          name: 'b',
+          value: 1.65,
+        },
+      ],
       rows: [
         {
           number: 1,
@@ -418,7 +445,18 @@
 
   const deleteTableById = (id: number) => {
     if (tables.value.length > 1) {
-      tables.value = tables.value.filter((table, index) => index != id);
+      let tempIndex = 0;
+      tables.value = tables.value.filter((table, index) => {
+        if (table.id == id) {
+          if (index <= currentTableId.value) currentTableId.value--;
+        }
+        return table.id != id;
+      });
+    }
+    if (currentTableId.value >= tables.value.length - 1)
+      currentTableId.value = tables.value.length - 1;
+    else if (currentTableId.value <= 0) {
+      currentTableId.value = 0;
     }
   };
 
@@ -563,28 +601,9 @@
     border-bottom-right-radius: var(--br-big) !important;
   }
 
-  td > input:focus {
-    box-shadow: inset 0 0 0 2px var(--color-select);
-  }
-
+  td > input:focus,
   td > input.selected {
     box-shadow: inset 0 0 0 2px var(--color-select);
-  }
-
-  td > input.selected:not(:focus) {
-    animation: anim1 1s ease-in-out infinite;
-  }
-
-  @keyframes anim1 {
-    from {
-      box-shadow: inset 0 0 0 2px var(--color-select);
-    }
-    50% {
-      box-shadow: inset 0 0 0 1px var(--color-select);
-    }
-    to {
-      box-shadow: inset 0 0 0 2px var(--color-select);
-    }
   }
 
   td.number,

@@ -20,7 +20,7 @@
 <script setup lang="ts">
   const props = defineProps({
     idForVertScroll: {
-      default: false,
+      default: '',
       required: false,
       type: String,
     },
