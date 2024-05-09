@@ -80,7 +80,12 @@
                 </tr>
               </table>
             </div>
-            <BaseButton text="+" @click="createNewRow" />
+            <BaseButton
+              id="create_new_row_btn"
+              text="+"
+              color="var(--color-green)"
+              @click="createNewRow"
+            />
           </div>
 
           <div class="inputs__wrapper" style="width: 450px">
@@ -241,6 +246,11 @@
         ref(null),
       ],
     });
+
+    const create_new_row_btn = document.getElementById(
+      'create_new_row_btn',
+    ) as HTMLButtonElement;
+    create_new_row_btn.scrollIntoView(true);
   };
 </script>
 
@@ -308,14 +318,14 @@
     border-spacing: 0;
     border-radius: var(--br-big);
     outline: none;
-    border: 1px solid var(--color-border-1);
+    border: 2px solid var(--color-border-1);
     overflow: hidden;
   }
 
   table > tr > td,
   table > tr > th {
     border: none;
-    box-shadow: 0 0 0 1px var(--color-border-1);
+    box-shadow: 0 0 0 0.65px var(--color-border-1);
   }
   th,
   td {
@@ -323,11 +333,14 @@
   }
 
   th {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--color-border-3);
+    box-shadow: inset 0 0 0 1px var(--color-border-1) !important;
     padding: 20px 10px;
   }
 
   td > input {
+    --color-select: var(--color-green);
+
     outline: none;
     width: 100%;
     min-width: 110px;
@@ -351,11 +364,11 @@
   }
 
   td > input:focus {
-    box-shadow: inset 0 0 0 2px var(--color-primary);
+    box-shadow: inset 0 0 0 2px var(--color-select);
   }
 
   td > input.selected {
-    box-shadow: inset 0 0 0 2px var(--color-primary);
+    box-shadow: inset 0 0 0 2px var(--color-select);
   }
 
   td > input.selected:not(:focus) {
@@ -364,13 +377,13 @@
 
   @keyframes anim1 {
     from {
-      box-shadow: inset 0 0 0 2px var(--color-primary);
+      box-shadow: inset 0 0 0 2px var(--color-select);
     }
     50% {
-      box-shadow: inset 0 0 0 1px var(--color-primary);
+      box-shadow: inset 0 0 0 1px var(--color-select);
     }
     to {
-      box-shadow: inset 0 0 0 2px var(--color-primary);
+      box-shadow: inset 0 0 0 2px var(--color-select);
     }
   }
 
@@ -393,16 +406,16 @@
 
   td.number.deletable:hover::after {
     position: absolute;
+    left: 0;
+    top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     content: 'X';
-    width: 30px;
-    height: 30px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
+    font-weight: 600;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--br-small);
     color: var(--color-white);
     background-color: var(--color-red);
   }
