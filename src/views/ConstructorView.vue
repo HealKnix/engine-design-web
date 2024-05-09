@@ -1,18 +1,16 @@
 <template>
   <BentoWrapper style="height: 100%">
-    <BentoWrapper>
-      <BentoBlock
-        type="width"
-        overflow="none"
-        padding="25px"
-        style="height: fit-content"
-      >
-        <div class="engine_name__wrapper">
-          <h2>Двигатель:</h2>
-          <input placeholder="Введите название" class="engine_name" />
-        </div>
-      </BentoBlock>
-    </BentoWrapper>
+    <BentoBlock
+      type="width"
+      overflow="none"
+      padding="25px"
+      style="height: fit-content"
+    >
+      <div class="engine_name__wrapper">
+        <h2>Двигатель:</h2>
+        <input placeholder="Введите название" class="engine_name" />
+      </div>
+    </BentoBlock>
 
     <BentoWrapper direction="row">
       <BentoBlock class="variable_choice__wrapper" style="width: 425px">
@@ -35,8 +33,14 @@
       </BentoBlock>
 
       <BentoWrapper style="height: 100%">
-        <BentoBlock style="height: 100%">
-          <h2>Таблица</h2>
+        <BentoBlock
+          style="
+            & > .bento__wrapper {
+              width: fit-content !important;
+            }
+          "
+        >
+          <h2>{{ tables[currentTableId].name }}</h2>
           <hr />
           <div class="table__wrapper" style="margin-bottom: 50px">
             <div class="table">
@@ -54,7 +58,10 @@
                     <th>x</th>
                     <th>x</th>
                   </tr>
-                  <tr v-for="(row, index) in rows" :key="index">
+                  <tr
+                    v-for="(row, index) in tables[currentTableId].rows"
+                    :key="index"
+                  >
                     <td
                       class="number"
                       @click="deleteRowById(index)"
@@ -87,31 +94,57 @@
               />
             </div>
 
-            <div class="inputs__wrapper" style="width: 450px" overflow="none">
+            <div
+              class="inputs__wrapper"
+              style="min-width: 170px"
+              overflow="none"
+            >
               <BaseInput title="a" />
               <BaseInput title="b" />
             </div>
           </div>
         </BentoBlock>
 
-        <BentoBlock overflow="none" padding="15px" style="height: fit-content">
+        <BentoBlock
+          id-for-vert-scroll="tables_vertical_scroll"
+          overflow="none"
+          padding="15px"
+          style="height: fit-content"
+        >
           <div class="tables__wrapper">
-            <div class="tables__wrapper__table__wrapper">
-              <div class="tables__wrapper__table_name selected">Таблица 1</div>
-            </div>
-            <div class="tables__wrapper__table__wrapper">
-              <div class="tables__wrapper__table_name">Таблица 2</div>
-            </div>
-            <div class="tables__wrapper__table__wrapper">
-              <div class="tables__wrapper__table_name">Таблица 3</div>
+            <div
+              v-for="(table, index) in tables"
+              :key="index"
+              class="tables__wrapper__table__wrapper"
+            >
+              <div
+                class="tables__wrapper__table_name"
+                :class="{ selected: currentTableId == index }"
+                @click="
+                  () => {
+                    currentTableId = index;
+                  }
+                "
+              >
+                {{ table.name }}
+              </div>
+              <div
+                v-if="tables.length != 1"
+                class="tables__wrapper__delete_table_btn"
+                @click="deleteTableById(index)"
+              >
+                X
+              </div>
             </div>
             <BaseButton
+              id="create_new_table_btn"
               text="+"
               width="fit-content"
               padding="0 15px"
               border-radius="50%"
               color="var(--color-border-3)"
               text-color="var(--color-text-1)"
+              @click="createNewTable(tables.length)"
             />
           </div>
         </BentoBlock>
@@ -144,7 +177,8 @@
         } else {
           if (
             (inputX.value ?? 0) == 6 &&
-            (inputY.value ?? 0) == rows.value.length - 1
+            (inputY.value ?? 0) ==
+              tables.value[currentTableId.value].rows.length - 1
           ) {
             selectedInputId.value = null;
             return;
@@ -167,8 +201,11 @@
         inputX.value = 6;
         inputY.value = (inputY.value ?? 0) - 1;
       }
-      if ((inputY.value ?? 0) >= rows.value.length - 1)
-        inputY.value = rows.value.length - 1;
+      if (
+        (inputY.value ?? 0) >=
+        tables.value[currentTableId.value].rows.length - 1
+      )
+        inputY.value = tables.value[currentTableId.value].rows.length - 1;
       if ((inputY.value ?? 0) <= 0) inputY.value = 0;
 
       selectedInputId.value = `table_input_${inputY.value}${inputX.value}`;
@@ -185,7 +222,10 @@
       selectedInputId.value ?? '',
     ) as HTMLInputElement;
     if (inputHTML) {
-      const column = rows.value[inputY.value ?? 0].columns[inputX.value ?? 0];
+      const column =
+        tables.value[currentTableId.value].rows[inputY.value ?? 0].columns[
+          inputX.value ?? 0
+        ];
       if (!column.value) column.value = '';
       column.value += varName;
       // inputHTML.value += varName;
@@ -205,48 +245,185 @@
 
   console.log(vars);
 
-  const rows = ref<
+  const currentTableId = ref<number>(0);
+  const tables = ref<
     {
-      number: Number;
-      formula: String;
-      dim: String;
-      columns: Ref<number | null | string>[];
+      name: String;
+      rows: {
+        number: Number;
+        formula: String;
+        dim: String;
+        columns: Ref<number | null | string>[];
+      }[];
     }[]
   >([
     {
-      number: 1,
-      formula: 'Y = a * b 1',
-      dim: 'Ом.',
-      columns: [ref(23), ref(25), ref(26), ref(77), ref(12), ref(23), ref(51)],
+      name: 'Таблица 1',
+      rows: [
+        {
+          number: 1,
+          formula: 'Y = a * b 1',
+          dim: 'Ом.',
+          columns: [
+            ref(23),
+            ref(25),
+            ref(26),
+            ref(77),
+            ref(12),
+            ref(23),
+            ref(51),
+          ],
+        },
+        {
+          number: 2,
+          formula: 'Y = a * b 2',
+          dim: 'Ом.',
+          columns: [
+            ref(23),
+            ref(25),
+            ref(26),
+            ref(77),
+            ref(12),
+            ref(23),
+            ref(51),
+          ],
+        },
+        {
+          number: 3,
+          formula: 'Y = a * b 3',
+          dim: 'Ом.',
+          columns: [
+            ref(23),
+            ref(25),
+            ref(26),
+            ref(77),
+            ref(12),
+            ref(23),
+            ref(51),
+          ],
+        },
+      ],
     },
     {
-      number: 2,
-      formula: 'Y = a * b 2',
-      dim: 'Ом.',
-      columns: [ref(23), ref(25), ref(26), ref(77), ref(12), ref(23), ref(51)],
-    },
-    {
-      number: 3,
-      formula: 'Y = a * b 3',
-      dim: 'Ом.',
-      columns: [ref(23), ref(25), ref(26), ref(77), ref(12), ref(23), ref(51)],
+      name: 'Таблица 2',
+      rows: [
+        {
+          number: 1,
+          formula: 'Y = a * b 1',
+          dim: 'Ом.',
+          columns: [
+            ref(23),
+            ref(25),
+            ref(26),
+            ref(77),
+            ref(12),
+            ref(23),
+            ref(51),
+          ],
+        },
+        {
+          number: 2,
+          formula: 'Y = a * b 2',
+          dim: 'Ом.',
+          columns: [
+            ref(23),
+            ref(25),
+            ref(26),
+            ref(77),
+            ref(12),
+            ref(23),
+            ref(51),
+          ],
+        },
+        {
+          number: 3,
+          formula: 'Y = a * b 3',
+          dim: 'Ом.',
+          columns: [
+            ref(23),
+            ref(25),
+            ref(26),
+            ref(77),
+            ref(12),
+            ref(23),
+            ref(51),
+          ],
+        },
+      ],
     },
   ]);
 
+  const createNewTable = (id: number) => {
+    if (tables.value.length >= 10) {
+      modalStore.openToastModal(
+        'warning',
+        'Вы превисили лимит в колличестве таблиц',
+      );
+      return;
+    }
+
+    tables.value.push({
+      name: `Таблица ${id + 1}`,
+      rows: [
+        {
+          number: 1,
+          formula: '',
+          dim: '',
+          columns: [
+            ref(null),
+            ref(null),
+            ref(null),
+            ref(null),
+            ref(null),
+            ref(null),
+            ref(null),
+          ],
+        },
+      ],
+    });
+
+    const create_new_table_btn = document.getElementById(
+      'create_new_table_btn',
+    ) as HTMLButtonElement;
+    const content = document.getElementById(
+      'tables_vertical_scroll',
+    ) as HTMLElement;
+
+    const content_scroll_width = content.scrollWidth;
+    let content_scoll_left = content.scrollLeft;
+    create_new_table_btn.addEventListener('click', () => {
+      content_scoll_left += content_scroll_width;
+      if (content_scoll_left >= content_scroll_width) {
+        content_scoll_left = content_scroll_width;
+      }
+      content.scrollLeft = content_scoll_left;
+    });
+  };
+
   const deleteRowById = (id: number) => {
-    if (rows.value.length == 1) {
-      rows.value = rows.value.filter((row, index) => index != id);
+    if (tables.value[currentTableId.value].rows.length == 1) {
+      tables.value[currentTableId.value].rows = tables.value[
+        currentTableId.value
+      ].rows.filter((row, index) => index != id);
       createNewRow();
     } else {
-      rows.value = rows.value.filter((row, index) => index != id);
+      tables.value[currentTableId.value].rows = tables.value[
+        currentTableId.value
+      ].rows.filter((row, index) => index != id);
     }
-    if (rows.value.length <= (inputY.value ?? 0)) {
+    if (tables.value[currentTableId.value].rows.length <= (inputY.value ?? 0)) {
       selectedInputId.value = null;
     }
   };
 
+  const deleteTableById = (id: number) => {
+    if (tables.value.length > 1) {
+      tables.value = tables.value.filter((table, index) => index != id);
+    }
+  };
+
   const createNewRow = () => {
-    if (rows.value.length >= 50) {
+    if (tables.value[currentTableId.value].rows.length >= 50) {
       modalStore.openToastModal(
         'warning',
         'Вы превисили лимит в колличестве формул',
@@ -254,8 +431,8 @@
       return;
     }
 
-    rows.value.push({
-      number: rows.value.length + 1,
+    tables.value[currentTableId.value].rows.push({
+      number: tables.value[currentTableId.value].rows.length + 1,
       formula: '',
       dim: '',
       columns: [
@@ -279,7 +456,8 @@
 <style scoped lang="scss">
   .variables__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    justify-items: center;
     gap: 15px;
   }
 
@@ -443,6 +621,7 @@
   }
 
   .table__wrapper {
+    width: fit-content;
     display: flex;
     gap: 25px;
   }
@@ -456,14 +635,17 @@
   .tables__wrapper {
     display: flex;
     gap: 15px;
+    width: fit-content;
   }
 
   .tables__wrapper__table__wrapper {
-    cursor: pointer;
+    position: relative;
     padding-right: 15px;
     border-right: 1px solid var(--color-border-1);
 
     & > .tables__wrapper__table_name {
+      cursor: pointer;
+      text-wrap: nowrap;
       padding: 10px 15px;
       border-radius: var(--br-big);
       font-weight: 600;
@@ -479,6 +661,26 @@
       &.selected {
         background-color: var(--color-yellow);
       }
+    }
+
+    & > .tables__wrapper__delete_table_btn {
+      cursor: pointer;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      right: 5px;
+      top: -10px;
+      width: 20px;
+      height: 20px;
+      background-color: var(--color-red);
+      color: var(--color-white);
+      font-weight: 600;
+      border-radius: 50%;
+    }
+
+    &:has(:hover) > .tables__wrapper__delete_table_btn {
+      display: flex;
     }
   }
 </style>

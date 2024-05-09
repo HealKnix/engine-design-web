@@ -58,7 +58,7 @@
     },
     type: {
       required: false,
-      default: '',
+      default: 'text',
       type: String,
     },
     req: {
