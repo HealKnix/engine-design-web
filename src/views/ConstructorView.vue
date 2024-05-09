@@ -412,6 +412,8 @@
       return;
     }
 
+    currentTableId.value = tablesCount;
+
     tables.value.push({
       id: tablesCount,
       name: `Таблица ${++tablesCount}`,
