@@ -25,11 +25,7 @@
                 v-for="(var1, index) in vars"
                 :key="index"
                 class="variable_card"
-                @click="
-                  () => {
-                    console.log(`${var1} in ${selectedInputId}`);
-                  }
-                "
+                @click="putVariableIntoInput(var1)"
               >
                 <span>{{ var1 }}</span>
               </div>
@@ -72,6 +68,7 @@
                   <td v-for="(column, index1) in row.columns" :key="index1">
                     <input
                       type="text"
+                      v-model="row.columns[index1].value"
                       @click="selectInputById(index, index1)"
                       :id="`table_input_${index}${index1}`"
                       :class="{
@@ -101,7 +98,7 @@
   import BentoBlock from '@/components/BentoBlock.vue';
   import BentoWrapper from '@/components/BentoWrapper.vue';
   import BaseInput from '@/components/BaseInput.vue';
-  import { onMounted, ref } from 'vue';
+  import { onMounted, ref, type Ref } from 'vue';
   import { useModalsStore } from '@/stores/useModalsStore';
 
   const modalStore = useModalsStore();
@@ -109,23 +106,25 @@
   onMounted(() => {
     const table = document.getElementById('engine_table');
     table?.addEventListener('keydown', (e) => {
-      if (e.key == 'Tab' && e.shiftKey) {
-        if ((inputX.value ?? 0) == 0 && (inputY.value ?? 0) == 0) {
-          selectedInputId.value = null;
-          return;
+      if (e.key == 'Tab') {
+        if (e.shiftKey) {
+          if ((inputX.value ?? 0) == 0 && (inputY.value ?? 0) == 0) {
+            selectedInputId.value = null;
+            return;
+          }
+          e.preventDefault();
+          inputX.value = (inputX.value ?? 0) - 1;
+        } else {
+          if (
+            (inputX.value ?? 0) == 6 &&
+            (inputY.value ?? 0) == rows.value.length - 1
+          ) {
+            selectedInputId.value = null;
+            return;
+          }
+          e.preventDefault();
+          inputX.value = (inputX.value ?? 0) + 1;
         }
-        e.preventDefault();
-        inputX.value = (inputX.value ?? 0) - 1;
-      } else if (e.key == 'Tab' && !e.shiftKey) {
-        if (
-          (inputX.value ?? 0) == 6 &&
-          (inputY.value ?? 0) == rows.value.length - 1
-        ) {
-          selectedInputId.value = null;
-          return;
-        }
-        e.preventDefault();
-        inputX.value = (inputX.value ?? 0) + 1;
       }
 
       if (e.key == 'ArrowUp') inputY.value = (inputY.value ?? 0) - 1;
@@ -154,6 +153,19 @@
   const inputX = ref<number | null>(null);
   const inputY = ref<number | null>(null);
 
+  const putVariableIntoInput = (varName: string) => {
+    const inputHTML = document.getElementById(
+      selectedInputId.value ?? '',
+    ) as HTMLInputElement;
+    if (inputHTML) {
+      const column = rows.value[inputY.value ?? 0].columns[inputX.value ?? 0];
+      if (!column.value) column.value = '';
+      column.value += varName;
+      // inputHTML.value += varName;
+      inputHTML.focus();
+    }
+  };
+
   const selectInputById = (id: number, id1: number) => {
     inputX.value = id1;
     inputY.value = id;
@@ -171,26 +183,26 @@
       number: Number;
       formula: String;
       dim: String;
-      columns: Number[] | null[];
+      columns: Ref<number | null | string>[];
     }[]
   >([
     {
       number: 1,
-      formula: 'Y = a * b',
+      formula: 'Y = a * b 1',
       dim: 'Ом.',
-      columns: [23, 25, 26, 77, 12, 23, 51],
+      columns: [ref(23), ref(25), ref(26), ref(77), ref(12), ref(23), ref(51)],
     },
     {
       number: 2,
-      formula: 'Y = a * b',
+      formula: 'Y = a * b 2',
       dim: 'Ом.',
-      columns: [23, 25, 26, 77, 12, 23, 51],
+      columns: [ref(23), ref(25), ref(26), ref(77), ref(12), ref(23), ref(51)],
     },
     {
       number: 3,
-      formula: 'Y = a * b',
+      formula: 'Y = a * b 3',
       dim: 'Ом.',
-      columns: [23, 25, 26, 77, 12, 23, 51],
+      columns: [ref(23), ref(25), ref(26), ref(77), ref(12), ref(23), ref(51)],
     },
   ]);
 
@@ -200,6 +212,9 @@
       createNewRow();
     } else {
       rows.value = rows.value.filter((row, index) => index != id);
+    }
+    if (rows.value.length <= (inputY.value ?? 0)) {
+      selectedInputId.value = null;
     }
   };
 
@@ -216,7 +231,15 @@
       number: rows.value.length + 1,
       formula: '',
       dim: '',
-      columns: [null, null, null, null, null, null, null],
+      columns: [
+        ref(null),
+        ref(null),
+        ref(null),
+        ref(null),
+        ref(null),
+        ref(null),
+        ref(null),
+      ],
     });
   };
 </script>
@@ -296,7 +319,6 @@
   }
   th,
   td {
-    text-align: left;
     font-size: 18px;
   }
 
@@ -314,6 +336,7 @@
     font-size: 20px;
     font-weight: 500;
     padding: 15px;
+    text-align: center;
     border-radius: 0 !important;
     background-color: transparent;
     transition: 0.15s ease-in-out;
@@ -333,6 +356,22 @@
 
   td > input.selected {
     box-shadow: inset 0 0 0 2px var(--color-primary);
+  }
+
+  td > input.selected:not(:focus) {
+    animation: anim1 1s ease-in-out infinite;
+  }
+
+  @keyframes anim1 {
+    from {
+      box-shadow: inset 0 0 0 2px var(--color-primary);
+    }
+    50% {
+      box-shadow: inset 0 0 0 1px var(--color-primary);
+    }
+    to {
+      box-shadow: inset 0 0 0 2px var(--color-primary);
+    }
   }
 
   td.number,
