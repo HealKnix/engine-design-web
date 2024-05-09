@@ -412,8 +412,6 @@
       return;
     }
 
-    currentTableId.value = tablesCount;
-
     tables.value.push({
       id: tablesCount,
       name: `Таблица ${++tablesCount}`,
@@ -445,6 +443,8 @@
         },
       ],
     });
+
+    currentTableId.value = tables.value.length - 1;
 
     const create_new_table_btn = document.getElementById(
       'create_new_table_btn',
