@@ -120,11 +120,46 @@
               class="tables__wrapper__table__wrapper"
             >
               <div
+                :id="`table_${index}`"
+                :ref="`table_${index}`"
                 class="tables__wrapper__table_name"
                 :class="{ selected: currentTableId == index }"
                 @click="
                   () => {
                     currentTableId = index;
+                  }
+                "
+                @dblclick="
+                  (e: any) => {
+                    const divElement = (
+                      $refs[
+                        `table_${index}`
+                      ] as HTMLCollectionOf<HTMLDivElement>
+                    )[0];
+
+                    if (e.target.id == `table_${index}`) {
+                      divElement.contentEditable = 'true';
+                      divElement.focus();
+                      divElement.addEventListener('focusout', () => {
+                        divElement.contentEditable = 'false';
+                      });
+                      divElement.addEventListener('keydown', (e) => {
+                        if (e.key == 'Enter') {
+                          divElement.contentEditable = 'false';
+                        }
+                      });
+                    }
+                  }
+                "
+                @input="
+                  () => {
+                    const divElement = (
+                      $refs[
+                        `table_${index}`
+                      ] as HTMLCollectionOf<HTMLDivElement>
+                    )[0];
+
+                    tables[index].name = divElement.innerText;
                   }
                 "
               >
@@ -445,10 +480,9 @@
 
   const deleteTableById = (id: number) => {
     if (tables.value.length > 1) {
-      let tempIndex = 0;
       tables.value = tables.value.filter((table, index) => {
         if (table.id == id) {
-          if (index <= currentTableId.value) currentTableId.value--;
+          if (index < currentTableId.value) currentTableId.value--;
         }
         return table.id != id;
       });
@@ -658,6 +692,7 @@
   }
 
   .tables__wrapper__table__wrapper {
+    user-select: none;
     position: relative;
     padding-right: 15px;
     border-right: 1px solid var(--color-border-1);
@@ -675,6 +710,11 @@
           var(--color-yellow) 25%,
           transparent 100%
         );
+      }
+
+      &:focus {
+        outline: 2px solid var(--color-yellow);
+        outline-offset: 2px;
       }
 
       &.selected {
