@@ -1,7 +1,12 @@
 <template>
   <BentoWrapper style="height: 100%">
     <BentoWrapper>
-      <BentoBlock type="width" overflow="none" style="height: 90px">
+      <BentoBlock
+        type="width"
+        overflow="none"
+        padding="25px"
+        style="height: fit-content"
+      >
         <div class="engine_name__wrapper">
           <h2>Двигатель:</h2>
           <input placeholder="Введите название" class="engine_name" />
@@ -11,89 +16,106 @@
 
     <BentoWrapper direction="row">
       <BentoBlock class="variable_choice__wrapper" style="width: 425px">
-        <div
-          style="display: grid; grid-template-rows: 0fr 1fr 0fr; height: 100%"
-        >
-          <div>
-            <h2 style="text-align: center">Выберите переменную</h2>
-            <hr />
-          </div>
-
-          <div class="variable_choice">
-            <div class="variables__wrapper">
-              <div
-                v-for="(var1, index) in vars"
-                :key="index"
-                class="variable_card"
-                @click="putVariableIntoInput(var1)"
-              >
-                <span>{{ var1 }}</span>
-              </div>
+        <h2 style="text-align: center">Выберите переменную</h2>
+        <hr />
+        <div class="variable_choice">
+          <div class="variables__wrapper">
+            <div
+              v-for="(var1, index) in vars"
+              :key="index"
+              class="variable_card"
+              @click="putVariableIntoInput(var1)"
+            >
+              <span>{{ var1 }}</span>
             </div>
           </div>
-
-          <BaseButton text="Создать двигатель" style="margin-top: 25px" />
         </div>
+
+        <BaseButton text="Создать двигатель" style="margin-top: 25px" />
       </BentoBlock>
 
-      <BentoBlock>
-        <h2>Таблица</h2>
-        <hr />
-        <div class="table__wrapper" style="margin-bottom: 50px">
-          <div class="table">
-            <div class="table_flex">
-              <table id="engine_table">
-                <tr>
-                  <th>№</th>
-                  <th>Расчётная формула</th>
-                  <th>Размерность</th>
-                  <th>x</th>
-                  <th>x</th>
-                  <th>x</th>
-                  <th>x</th>
-                  <th>x</th>
-                  <th>x</th>
-                  <th>x</th>
-                </tr>
-                <tr v-for="(row, index) in rows" :key="index">
-                  <td
-                    class="number"
-                    @click="deleteRowById(index)"
-                    :class="{ deletable: rows.length > 1 }"
-                  >
-                    {{ index + 1 }}
-                  </td>
-                  <td class="formula">{{ row.formula }}</td>
-                  <td class="dim">{{ row.dim }}</td>
-                  <td v-for="(column, index1) in row.columns" :key="index1">
-                    <input
-                      type="text"
-                      v-model="row.columns[index1].value"
-                      @click="selectInputById(index, index1)"
-                      :id="`table_input_${index}${index1}`"
-                      :class="{
-                        selected:
-                          selectedInputId == `table_input_${index}${index1}`,
-                      }"
-                    />
-                  </td>
-                </tr>
-              </table>
+      <BentoWrapper style="height: 100%">
+        <BentoBlock style="height: 100%">
+          <h2>Таблица</h2>
+          <hr />
+          <div class="table__wrapper" style="margin-bottom: 50px">
+            <div class="table">
+              <div class="table_flex">
+                <table id="engine_table">
+                  <tr>
+                    <th>№</th>
+                    <th>Расчётная формула</th>
+                    <th>Размерность</th>
+                    <th>x</th>
+                    <th>x</th>
+                    <th>x</th>
+                    <th>x</th>
+                    <th>x</th>
+                    <th>x</th>
+                    <th>x</th>
+                  </tr>
+                  <tr v-for="(row, index) in rows" :key="index">
+                    <td
+                      class="number"
+                      @click="deleteRowById(index)"
+                      :class="{ deletable: true }"
+                    >
+                      {{ index + 1 }}
+                    </td>
+                    <td class="formula">{{ row.formula }}</td>
+                    <td class="dim">{{ row.dim }}</td>
+                    <td v-for="(column, index1) in row.columns" :key="index1">
+                      <input
+                        type="text"
+                        v-model="row.columns[index1].value"
+                        @mousedown="selectInputById(index, index1)"
+                        :id="`table_input_${index}${index1}`"
+                        :class="{
+                          selected:
+                            selectedInputId == `table_input_${index}${index1}`,
+                        }"
+                      />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <BaseButton
+                id="create_new_row_btn"
+                text="+"
+                color="var(--color-green)"
+                @click="createNewRow"
+              />
+            </div>
+
+            <div class="inputs__wrapper" style="width: 450px" overflow="none">
+              <BaseInput title="a" />
+              <BaseInput title="b" />
+            </div>
+          </div>
+        </BentoBlock>
+
+        <BentoBlock overflow="none" padding="15px" style="height: fit-content">
+          <div class="tables__wrapper">
+            <div class="tables__wrapper__table__wrapper">
+              <div class="tables__wrapper__table_name selected">Таблица 1</div>
+            </div>
+            <div class="tables__wrapper__table__wrapper">
+              <div class="tables__wrapper__table_name">Таблица 2</div>
+            </div>
+            <div class="tables__wrapper__table__wrapper">
+              <div class="tables__wrapper__table_name">Таблица 3</div>
             </div>
             <BaseButton
-              id="create_new_row_btn"
               text="+"
-              color="var(--color-green)"
-              @click="createNewRow"
+              width="fit-content"
+              padding="0 15px"
+              border-radius="50%"
+              color="var(--color-border-3)"
+              text-color="var(--color-text-1)"
             />
           </div>
-
-          <div class="inputs__wrapper" style="width: 450px">
-            <BaseInput title="a" />
-            <BaseInput title="b" />
-          </div>
-        </div>
-      </BentoBlock>
+        </BentoBlock>
+      </BentoWrapper>
     </BentoWrapper>
   </BentoWrapper>
 </template>
@@ -429,5 +451,34 @@
     display: flex;
     flex-direction: column;
     gap: 25px;
+  }
+
+  .tables__wrapper {
+    display: flex;
+    gap: 15px;
+  }
+
+  .tables__wrapper__table__wrapper {
+    cursor: pointer;
+    padding-right: 15px;
+    border-right: 1px solid var(--color-border-1);
+
+    & > .tables__wrapper__table_name {
+      padding: 10px 15px;
+      border-radius: var(--br-big);
+      font-weight: 600;
+
+      &:hover {
+        background-color: color-mix(
+          in srgb,
+          var(--color-yellow) 25%,
+          transparent 100%
+        );
+      }
+
+      &.selected {
+        background-color: var(--color-yellow);
+      }
+    }
   }
 </style>

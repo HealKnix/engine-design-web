@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "plugin:vue/recommended"
+  ],
+  "rules": {
+    "vue/require-prop-type-constructor": "error",
+    "vue/no-mutating-props": "error",
+    "vue/prop-name-casing": ["error", "camelCase"],
+    "vue/require-default-prop": "error",
+    "vue/require-prop-types": "error"
+  }
+}

@@ -7,7 +7,7 @@
       { overflowed: overflow === 'auto' },
     ]"
   >
-    <div class="bento__wrapper">
+    <div class="bento__wrapper" :style="{ padding: padding }">
       <slot></slot>
     </div>
   </div>
@@ -30,11 +30,17 @@
       required: false,
       type: String,
     },
+    padding: {
+      default: '25px',
+      required: false,
+      type: String,
+    },
   });
 </script>
 
 <style scoped lang="scss">
   .bento__wrapper {
+    position: relative;
     width: auto;
     height: 100%;
     padding: 25px;

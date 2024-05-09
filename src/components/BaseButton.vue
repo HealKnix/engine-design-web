@@ -1,6 +1,8 @@
 <template>
-  <button :style="`--color: ${color}`">
-    <span class="btn_text">
+  <button
+    :style="`--color: ${color}; width: ${width}; padding: ${padding}; border-radius: ${borderRadius}`"
+  >
+    <span class="btn_text" :style="`color: ${textColor}`">
       {{ text }}
     </span>
   </button>
@@ -8,14 +10,34 @@
 
 <script setup lang="ts">
   const props = defineProps({
+    width: {
+      require: true,
+      default: '100%',
+      type: String,
+    },
+    padding: {
+      require: true,
+      default: '15px 30px',
+      type: String,
+    },
     text: {
       require: true,
       default: '',
       type: String,
     },
+    borderRadius: {
+      require: false,
+      default: 'var(--br-small)',
+      type: String,
+    },
     color: {
       require: false,
       default: 'var(--color-primary)',
+      type: String,
+    },
+    textColor: {
+      require: false,
+      default: 'var(--color-white)',
       type: String,
     },
   });
@@ -28,7 +50,7 @@
     cursor: pointer;
     width: 100%;
     border: none;
-    border-radius: 7px;
+    border-radius: var(--br-small);
     padding: 15px 30px;
     font-size: 20px;
     font-weight: 500;
