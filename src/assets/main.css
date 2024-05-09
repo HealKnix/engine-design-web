@@ -75,5 +75,5 @@ body {
 
 hr {
   margin: 25px 0;
-  border: 1px solid #b3b3b3;
+  border: 1px solid var(--color-border-3);
 }
