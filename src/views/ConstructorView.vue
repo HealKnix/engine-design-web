@@ -719,6 +719,7 @@
       }
 
       &:focus {
+        cursor: text;
         outline: 2px solid var(--color);
         outline-offset: 2px;
       }

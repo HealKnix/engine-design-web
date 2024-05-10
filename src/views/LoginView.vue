@@ -19,13 +19,12 @@
         :req="isPasswordEmpty"
         placeholder="Пароль"
       />
-      <!--
-      <div style="width: 100%; text-align: center">
+
+      <!-- <div style="width: 100%; text-align: center">
         Нет аккаунта?
         <br />
         <a href="#">Регистрация</a>
-      </div>
-      -->
+      </div> -->
 
       <BaseButton text="Войти" @click="login" style="margin-top: 15px" />
     </div>
@@ -41,6 +40,7 @@
   import { useAuthStore } from '../stores/useAuthStore';
   import { useModalsStore } from '../stores/useModalsStore';
   import router from '@/router';
+  import { sha256 } from '@/utils/crypto';
 
   const authStore = useAuthStore();
   const modalStore = useModalsStore();
@@ -70,7 +70,10 @@
     }
 
     const findUser = userList.value.find((user) => {
-      if (user.email === email.value && user.password === password.value) {
+      if (
+        user.email === email.value &&
+        user.password === sha256(password.value)
+      ) {
         return user;
       }
     });

@@ -1,4 +1,5 @@
 import { userList, UserRole, type User } from '@/models/User';
+import { sha256 } from '@/utils/crypto';
 import { defineStore } from 'pinia';
 
 const userId = 0;
@@ -8,6 +9,23 @@ export const useAuthStore = defineStore('auth', {
     user: userList.value[userId],
   }),
   getters: {
+    getUserData(): User {
+      return {
+        id: this.user.id,
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        middleName: this.user.middleName,
+        fullName: this.user.fullName,
+        shortName: this.user.shortName,
+        login: this.user.login,
+        email: this.user.email,
+        password: this.user.password,
+        phoneNumber: this.user.phoneNumber,
+        role: this.user.role,
+        department: this.user.department,
+        group: this.user.group,
+      };
+    },
     isLogin(): Boolean {
       return Boolean(this.user.role !== UserRole.GUEST);
     },
@@ -32,31 +50,32 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     setUser(user: User) {
       this.user = user;
+      userList.value = userList.value.map((user1) => {
+        if (user1.id == this.user.id) {
+          user1 = this.user;
+          user1.password = sha256(this.user.password ?? '');
+          user1.fullName = `${user1.lastName} ${user1.firstName} ${user1.middleName}`;
+          user1.shortName = `${user1.lastName} ${user1.firstName?.[0]}.${user1.middleName?.[0]}.`;
+        }
+        return user1;
+      });
     },
     clearUser() {
-      this.user.id = null;
-      this.user.firstName = null;
-      this.user.lastName = null;
-      this.user.middleName = null;
-      this.user.fullName = null;
-      this.user.shortName = null;
-      this.user.login = null;
-      this.user.email = null;
-      this.user.password = null;
-      this.user.phoneNumber = null;
-      this.user.role = UserRole.GUEST;
-      this.user.department = null;
-      this.user.group = null;
-    },
-    setName(lastName: string, firstName: string, middleName: string) {
-      this.user.lastName = lastName;
-      this.user.firstName = firstName;
-      this.user.middleName = middleName;
-      this.user.fullName = `${lastName} ${firstName} ${middleName}`;
-      this.user.shortName = `${lastName} ${firstName[0]}.${middleName[0]}.`;
-    },
-    setEmail(email: string) {
-      this.user.email = email;
+      this.user = {
+        id: null,
+        firstName: null,
+        lastName: null,
+        middleName: null,
+        fullName: null,
+        shortName: null,
+        login: null,
+        email: null,
+        password: null,
+        phoneNumber: null,
+        role: UserRole.GUEST,
+        department: null,
+        group: null,
+      };
     },
   },
 });

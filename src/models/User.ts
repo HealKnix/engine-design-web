@@ -54,7 +54,8 @@ export const userList = ref<User[]>([
     fullName: 'Михайлов Даниил Александрович',
     shortName: 'Михайлов Д.А.',
     email: 'mikhaylov.daniil2014@yandex.ru',
-    password: 'test',
+    password:
+      '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
     phoneNumber: '79248005533',
     role: UserRole.EDITOR,
     department: 'ИИТиАД',
@@ -67,7 +68,8 @@ export const userList = ref<User[]>([
     fullName: 'Дубровин Илья Сергеевич',
     shortName: 'Дубровин И.С.',
     email: 'dubrov.ilya2014@yandex.ru',
-    password: 'test',
+    password:
+      '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
     phoneNumber: '79248005534',
     role: UserRole.ADMIN,
     department: 'ИИТиАД',
@@ -80,7 +82,8 @@ export const userList = ref<User[]>([
     fullName: 'Бобров Валерий Михайлович',
     shortName: 'Бобров В.М.',
     email: 'bobrov.valeriy2014@yandex.ru',
-    password: 'test',
+    password:
+      '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
     phoneNumber: '79248005535',
     role: UserRole.ADMIN,
     department: 'ИИТиАД',
@@ -93,7 +96,8 @@ export const userList = ref<User[]>([
     fullName: 'Константинов Геннадий Григорьевич',
     shortName: 'Константинов Г.Г.',
     email: 'kgg40@mail.ru',
-    password: 'test',
+    password:
+      '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
     phoneNumber: '79248005536',
     role: UserRole.TEACHER,
     department: 'ЭиЭТ',
@@ -106,7 +110,8 @@ export const userList = ref<User[]>([
     fullName: 'Ветров Денис Константинович',
     shortName: 'Ветров Д.К.',
     email: 'vetrov.denis2014@yandex.ru',
-    password: 'test',
+    password:
+      '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
     login: '20210001',
     phoneNumber: '79248005537',
     role: UserRole.STUDENT,
@@ -121,7 +126,8 @@ export const userList = ref<User[]>([
     fullName: 'Тестов Тест Тестович',
     shortName: 'Тестов Т.Т.',
     email: 'test@test.test',
-    password: 'test',
+    password:
+      '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
     login: 'test',
     phoneNumber: 'test',
     role: UserRole.EDITOR,

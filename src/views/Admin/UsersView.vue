@@ -82,8 +82,8 @@
         v-model="currentUserPhone"
       />
       <BaseInput
-        type="password"
         title="Пароль"
+        type="password"
         :autocomplete="false"
         v-model="currentUserPassword"
       />
