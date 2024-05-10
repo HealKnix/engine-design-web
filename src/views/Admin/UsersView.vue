@@ -15,7 +15,10 @@
         )"
         :key="index"
         class="user_card"
-        :class="[{ selected: isCurrentUserSelected(user) }]"
+        :class="[
+          { selected: isCurrentUserSelected(user) },
+          { current_user: user.id == authStore.user.id },
+        ]"
         v-on:click="setCurrentUser(user)"
       >
         <span>{{ user.id }}</span>
@@ -127,8 +130,10 @@
   } from '../../models/User';
   import BaseButton from '@/components/BaseButton.vue';
   import { useModalsStore } from '../../stores/useModalsStore';
+  import { useAuthStore } from '@/stores/useAuthStore';
 
   const modalsStore = useModalsStore();
+  const authStore = useAuthStore();
 
   const currentUserId = ref();
   const currentUserFirstName = ref();
@@ -254,6 +259,9 @@
   .user_card.selected {
     background-color: var(--color-yellow);
     scale: 1.01;
+  }
+  .user_card.current_user {
+    border-left: 7px solid var(--color-yellow);
   }
   .user_card > * {
     font-weight: 500;
