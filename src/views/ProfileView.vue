@@ -17,7 +17,9 @@
           </div>
           <div class="row">
             <span>Телефон:</span>
-            <span class="info_desc">{{ authStore.user.phoneNumber }}</span>
+            <span class="info_desc">{{
+              phoneFormat(authStore.user.phoneNumber ?? '')
+            }}</span>
           </div>
         </div>
       </div>
@@ -79,14 +81,7 @@
         v-model="currentUserPhone"
       />
 
-      <BaseButton
-        text="Редактировать"
-        @click="
-          () => {
-            isEdit = false;
-          }
-        "
-      />
+      <BaseButton text="Редактировать" @click="editProfile" />
     </div>
   </BentoBlock>
 </template>
@@ -97,8 +92,12 @@
   import { ref } from 'vue';
   import BaseInput from '@/components/BaseInput.vue';
   import { useAuthStore } from '../stores/useAuthStore';
+  import { phoneFormat } from '@/utils/phoneFormat';
+  import { userList, type User } from '@/models/User';
+  import { useModalsStore } from '@/stores/useModalsStore';
 
   const authStore = useAuthStore();
+  const modalStore = useModalsStore();
 
   const currentUserFirstName = ref(authStore.user.firstName);
   const currentUserLastName = ref(authStore.user.lastName);
@@ -108,6 +107,22 @@
   const currentUserPhone = ref(authStore.user.phoneNumber);
 
   const isEdit = ref(false);
+
+  const editProfile = () => {
+    userList.value = userList.value.map((user) => {
+      if (user.id == authStore.user.id) {
+        user.firstName = currentUserFirstName.value;
+        user.lastName = currentUserLastName.value;
+        user.middleName = currentUserMiddleName.value;
+        user.email = currentUserEmail.value;
+        // user.password = currentUserPassword.value;
+        user.phoneNumber = currentUserPhone.value;
+      }
+      return user;
+    });
+
+    isEdit.value = false;
+  };
 </script>
 
 <style scoped lang="scss">

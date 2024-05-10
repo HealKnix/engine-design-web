@@ -92,6 +92,7 @@
                 id="create_new_row_btn"
                 text="+"
                 color="var(--color-green)"
+                style="margin-top: 5px"
                 @click="createNewRow"
               />
             </div>
@@ -141,25 +142,16 @@
                       divElement.contentEditable = 'true';
                       divElement.focus();
                       divElement.addEventListener('focusout', () => {
+                        tables[index].name = divElement.innerText;
                         divElement.contentEditable = 'false';
                       });
                       divElement.addEventListener('keydown', (e) => {
                         if (e.key == 'Enter') {
+                          tables[index].name = divElement.innerText;
                           divElement.contentEditable = 'false';
                         }
                       });
                     }
-                  }
-                "
-                @input="
-                  () => {
-                    const divElement = (
-                      $refs[
-                        `table_${index}`
-                      ] as HTMLCollectionOf<HTMLDivElement>
-                    )[0];
-
-                    tables[index].name = divElement.innerText;
                   }
                 "
               >
@@ -700,6 +692,10 @@
     border-right: 1px solid var(--color-border-1);
 
     & > .tables__wrapper__table_name {
+      --color: var(--color-green);
+
+      display: block;
+      height: 100%;
       cursor: pointer;
       text-wrap: nowrap;
       padding: 10px 15px;
@@ -709,18 +705,27 @@
       &:hover {
         background-color: color-mix(
           in srgb,
-          var(--color-yellow) 25%,
+          var(--color) 25%,
           transparent 100%
         );
       }
 
+      &:has(:empty) {
+        content: ' ';
+      }
+
+      &:has(:not(:empty)) {
+        content: ' ';
+      }
+
       &:focus {
-        outline: 2px solid var(--color-yellow);
+        outline: 2px solid var(--color);
         outline-offset: 2px;
       }
 
       &.selected {
-        background-color: var(--color-yellow);
+        color: var(--color-white);
+        background-color: var(--color);
       }
     }
 
