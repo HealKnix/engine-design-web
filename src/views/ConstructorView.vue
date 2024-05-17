@@ -701,6 +701,7 @@
       padding: 10px 15px;
       border-radius: var(--br-big);
       font-weight: 600;
+      transition: 0.15s ease-in-out;
 
       &:hover {
         background-color: color-mix(
