@@ -167,11 +167,12 @@
             </div>
             <BaseButton
               id="create_new_table_btn"
+              style="border: 1px solid var(--color-border-1)"
               text="+"
               width="fit-content"
-              padding="0 15px"
+              padding="0px 12.7px"
               border-radius="50%"
-              color="var(--color-border-3)"
+              color="var(--color-white)"
               text-color="var(--color-text-1)"
               @click="createNewTable(tables.length)"
             />
